@@ -11,4 +11,10 @@ public class PasswordSolverTest {
         Assertions.assertEquals(3, solution);
     }
 
+    @Test
+    void solutionFromMyInput() {
+        int solution = PasswordSolver.solveFromFile("src/main/resources/input/year2025/day1.txt");
+        Assertions.assertEquals(1081, solution);
+    }
+
 }
