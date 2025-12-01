@@ -7,25 +7,25 @@ public class PasswordSolverTest {
 
     @Test
     void exampleFromPuzzle() {
-        int solution = PasswordSolver.solveFromFile("src/test/resources/year2025/day1/rotation-list-example.txt");
+        var solution = PasswordSolver.solveFromFile("src/test/resources/year2025/day1/rotation-list-example.txt");
         Assertions.assertEquals(3, solution);
     }
 
     @Test
     void exampleFromPuzzleForPart2() {
-        int solution = PasswordSolver.solveFromFileForEveryOccurrenceOfZero("src/test/resources/year2025/day1/rotation-list-example.txt");
+        var solution = PasswordSolver.solveFromFileForEveryOccurrenceOfZero("src/test/resources/year2025/day1/rotation-list-example.txt");
         Assertions.assertEquals(6, solution);
     }
 
     @Test
     void solutionFromMyInput() {
-        int solution = PasswordSolver.solveFromFile("src/main/resources/input/year2025/day1.txt");
+        var solution = PasswordSolver.solveFromFile("src/main/resources/input/year2025/day1.txt");
         Assertions.assertEquals(1081, solution);
     }
 
     @Test
     void solutionFromMyInputForPart2() {
-        int solution = PasswordSolver.solveFromFileForEveryOccurrenceOfZero("src/main/resources/input/year2025/day1.txt");
+        var solution = PasswordSolver.solveFromFileForEveryOccurrenceOfZero("src/main/resources/input/year2025/day1.txt");
         Assertions.assertEquals(6689, solution);
     }
 

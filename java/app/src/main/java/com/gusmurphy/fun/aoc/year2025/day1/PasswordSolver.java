@@ -1,35 +1,26 @@
 package com.gusmurphy.fun.aoc.year2025.day1;
 
+import java.util.stream.Stream;
+
 public class PasswordSolver {
-    public static int solveFromFile(String absolutePathToFile) {
+    public static long solveFromFile(String absolutePathToFile) {
         var rotationList = DialRotationListParser.parseFile(absolutePathToFile);
-        int zeroCount = 0;
-        var dial = new Dial();
+        var rotationsIterator = rotationList.iterator();
 
-        for (var r : rotationList) {
-            dial = dial.rotate(r);
-            if (dial.position() == 0) {
-                zeroCount++;
-            }
-        }
-
-        return zeroCount;
+        return Stream.iterate(new Dial(), dial -> dial.rotate(rotationsIterator.next()))
+                .limit(rotationList.size())
+                .filter(dial -> dial.position() == 0)
+                .count();
     }
 
-    public static int solveFromFileForEveryOccurrenceOfZero(String absolutePathToFile) {
+    public static long solveFromFileForEveryOccurrenceOfZero(String absolutePathToFile) {
         var rotationList = DialRotationListParser.parseFile(absolutePathToFile);
-        int zeroCount = 0;
-        var dial = new Dial();
+        var allStepsList = rotationList.stream().flatMap(DialRotation::steps).toList();
+        var stepsIterator = allStepsList.iterator();
 
-        for (var r : rotationList) {
-            for (var step : r.steps().toList()) {
-                dial = dial.rotate(step);
-                if (dial.position() == 0) {
-                    zeroCount++;
-                }
-            }
-        }
-
-        return zeroCount;
+        return Stream.iterate(new Dial(), dial -> dial.rotate(stepsIterator.next()))
+                .limit(allStepsList.size())
+                .filter(dial -> dial.position() == 0)
+                .count();
     }
 }
