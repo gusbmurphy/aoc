@@ -12,6 +12,12 @@ public class PasswordSolverTest {
     }
 
     @Test
+    void exampleFromPuzzleForPart2() {
+        int solution = PasswordSolver.solveFromFileForEveryOccurrenceOfZero("src/test/resources/year2025/day1/rotation-list-example.txt");
+        Assertions.assertEquals(6, solution);
+    }
+
+    @Test
     void solutionFromMyInput() {
         int solution = PasswordSolver.solveFromFile("src/main/resources/input/year2025/day1.txt");
         Assertions.assertEquals(1081, solution);
