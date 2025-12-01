@@ -1,7 +1,5 @@
-package com.gusmurphy.fun.aoc.year24.day1;
+package com.gusmurphy.fun.aoc.year2024.day1;
 
-import com.gusmurphy.fun.aoc.year2024.day1.LocationListParser;
-import com.gusmurphy.fun.aoc.year2024.day1.LocationListPair;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -13,7 +11,7 @@ public class LocationListParserTest {
 
     @Test
     void listIsParsedCorrectly() {
-        var file = new File("src/test/resources/year24/day1/test-list.txt");
+        var file = new File("src/test/resources/year2024/day1/test-list.txt");
         LocationListPair result = LocationListParser.parseFile(file.getAbsolutePath());
 
         var expectedLeft = List.of(3, 4, 2, 1, 3, 3);

@@ -1,7 +1,5 @@
-package com.gusmurphy.fun.aoc.year24.day1;
+package com.gusmurphy.fun.aoc.year2024.day1;
 
-import com.gusmurphy.fun.aoc.year2024.day1.LocationListPair;
-import com.gusmurphy.fun.aoc.year2024.day1.TotalDistance;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
