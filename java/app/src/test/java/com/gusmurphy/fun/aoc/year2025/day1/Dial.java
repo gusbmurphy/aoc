@@ -18,6 +18,10 @@ public class Dial {
             newPosition = newPosition - 100;
         }
 
+        while (newPosition < 0) {
+            newPosition += 100;
+        }
+
         return new Dial(newPosition);
     }
 }
