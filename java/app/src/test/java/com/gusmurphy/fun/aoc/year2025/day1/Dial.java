@@ -15,7 +15,7 @@ public class Dial {
         };
 
         while (newPosition > 99) {
-            newPosition = newPosition - 100;
+            newPosition -= 100;
         }
 
         while (newPosition < 0) {
