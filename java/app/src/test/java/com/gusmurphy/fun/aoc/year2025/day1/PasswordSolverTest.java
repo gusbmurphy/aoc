@@ -23,4 +23,10 @@ public class PasswordSolverTest {
         Assertions.assertEquals(1081, solution);
     }
 
+    @Test
+    void solutionFromMyInputForPart2() {
+        int solution = PasswordSolver.solveFromFileForEveryOccurrenceOfZero("src/main/resources/input/year2025/day1.txt");
+        Assertions.assertEquals(6689, solution);
+    }
+
 }
