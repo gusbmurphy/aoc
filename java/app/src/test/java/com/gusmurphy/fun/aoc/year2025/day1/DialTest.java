@@ -29,7 +29,10 @@ public class DialTest {
     private static Stream<Arguments> rotationsAndExpectedPositions() {
         return Stream.of(
                 Arguments.of(new DialRotation(RIGHT, 5), 55),
-                Arguments.of(new DialRotation(LEFT, 3), 47)
+                Arguments.of(new DialRotation(LEFT, 3), 47),
+                Arguments.of(new DialRotation(RIGHT, 49), 99),
+                Arguments.of(new DialRotation(LEFT, 50), 0),
+                Arguments.of(new DialRotation(RIGHT, 50), 0)
         );
     }
 

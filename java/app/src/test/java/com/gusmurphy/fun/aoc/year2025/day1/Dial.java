@@ -14,6 +14,10 @@ public class Dial {
             case RIGHT -> position + rotation.distance();
         };
 
+        while (newPosition > 99) {
+            newPosition = newPosition - 100;
+        }
+
         return new Dial(newPosition);
     }
 }
