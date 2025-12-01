@@ -9,6 +9,11 @@ public class Dial {
     public int position() { return position; }
 
     public Dial rotate(DialRotation rotation) {
-        return new Dial(this.position + rotation.distance());
+        int newPosition = switch (rotation.direction()) {
+            case LEFT -> position - rotation.distance();
+            case RIGHT -> position + rotation.distance();
+        };
+
+        return new Dial(newPosition);
     }
 }
