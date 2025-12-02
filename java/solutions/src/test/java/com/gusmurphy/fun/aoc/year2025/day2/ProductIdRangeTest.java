@@ -2,6 +2,9 @@ package com.gusmurphy.fun.aoc.year2025.day2;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -22,6 +25,20 @@ public class ProductIdRangeTest {
         );
 
         Assertions.assertIterableEquals(expected, result.toList());
+    }
+
+    @ParameterizedTest
+    @MethodSource("rangesAndExpectedRepeats")
+    void repeatedSequenceIdsInRange(ProductIdRange range, List<ProductId> expectedRepeats) {
+        var result = range.stream().filter(ProductId::justTwiceRepeatedSequence).toList();
+        Assertions.assertIterableEquals(expectedRepeats, result);
+    }
+
+    private static Stream<Arguments> rangesAndExpectedRepeats() {
+        return Stream.of(
+                Arguments.of(new ProductIdRange(11, 22), List.of(new ProductId(11), new ProductId(22))),
+                Arguments.of(new ProductIdRange(99, 115), List.of(new ProductId(99)))
+        );
     }
 
 }
