@@ -27,10 +27,6 @@ public class ProductId {
     }
 
     public boolean justRepeatedSequenceAnyNumberOfTimes() {
-        if (length() % 2 != 0) {
-            return false;
-        }
-
         return IntStream.rangeClosed(1, length() / 2)
                 .mapToObj(sequenceLength -> value.substring(0, sequenceLength))
                 .anyMatch(this::idContainsOnly);

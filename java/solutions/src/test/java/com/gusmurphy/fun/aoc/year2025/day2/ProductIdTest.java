@@ -37,7 +37,8 @@ public class ProductIdTest {
         return Stream.of(
                 Arguments.of(new ProductId(11), true),
                 Arguments.of(new ProductId(71), false),
-                Arguments.of(new ProductId(121212), true)
+                Arguments.of(new ProductId(121212), true),
+                Arguments.of(new ProductId(111), true)
         );
     }
 
