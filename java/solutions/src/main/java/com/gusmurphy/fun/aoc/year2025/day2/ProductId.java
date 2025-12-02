@@ -31,8 +31,7 @@ public class ProductId {
             return false;
         }
 
-        var possibleSequenceLengths = IntStream.rangeClosed(1, length() / 2);
-        return possibleSequenceLengths
+        return IntStream.rangeClosed(1, length() / 2)
                 .mapToObj(sequenceLength -> value.substring(0, sequenceLength))
                 .anyMatch(this::idContainsOnly);
     }
