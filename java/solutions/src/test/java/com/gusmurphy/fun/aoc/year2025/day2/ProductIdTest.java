@@ -12,7 +12,7 @@ public class ProductIdTest {
     @ParameterizedTest
     @MethodSource("idsAndExpectedRepeatResults")
     void idContainsSequenceRepeatedTwice(ProductId id, Boolean expected) {
-        Assertions.assertEquals(expected, id.containsTwiceRepeatedSequence());
+        Assertions.assertEquals(expected, id.justTwiceRepeatedSequence());
     }
 
     private static Stream<Arguments> idsAndExpectedRepeatResults() {
