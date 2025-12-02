@@ -12,4 +12,4 @@ plugins {
 }
 
 rootProject.name = "aoc-java"
-include("app")
+include("solutions")
