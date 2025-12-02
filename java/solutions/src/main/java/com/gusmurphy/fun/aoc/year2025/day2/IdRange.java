@@ -1,6 +1,6 @@
 package com.gusmurphy.fun.aoc.year2025.day2;
 
-import java.util.Objects;
+import module java.base;
 
 public class IdRange {
     private final long start;
@@ -9,6 +9,11 @@ public class IdRange {
     public IdRange(long start, long end) {
         this.start = start;
         this.end = end;
+    }
+
+    public Stream<ProductId> stream() {
+        return LongStream.range(start, end + 1)
+                .mapToObj(ProductId::new);
     }
 
     @Override

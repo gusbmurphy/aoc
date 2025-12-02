@@ -1,5 +1,6 @@
 package com.gusmurphy.fun.aoc.year2025.day2;
 
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class ProductId {
@@ -33,5 +34,17 @@ public class ProductId {
         return "ProductId{" +
                 "value='" + value + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductId productId = (ProductId) o;
+        return Objects.equals(value, productId.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(value);
     }
 }
