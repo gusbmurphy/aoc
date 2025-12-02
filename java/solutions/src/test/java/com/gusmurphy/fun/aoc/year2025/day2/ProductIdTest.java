@@ -10,12 +10,18 @@ import java.util.stream.Stream;
 public class ProductIdTest {
 
     @ParameterizedTest
-    @MethodSource("idsAndExpectedRepeatResults")
+    @MethodSource("idsAndExpectedSingleRepeatResults")
     void idContainsSequenceRepeatedTwice(ProductId id, Boolean expected) {
         Assertions.assertEquals(expected, id.justTwiceRepeatedSequence());
     }
 
-    private static Stream<Arguments> idsAndExpectedRepeatResults() {
+    @ParameterizedTest
+    @MethodSource("idsAndExpectedMultipleRepeatResults")
+    void idContainsSequenceRepeatedAnyNumberOfTimes(ProductId id, Boolean expected) {
+        Assertions.assertEquals(expected, id.justRepeatedSequenceAnyNumberOfTimes());
+    }
+
+    private static Stream<Arguments> idsAndExpectedSingleRepeatResults() {
         return Stream.of(
                 Arguments.of(new ProductId(11), true),
                 Arguments.of(new ProductId(71), false),
@@ -24,6 +30,13 @@ public class ProductIdTest {
                 Arguments.of(new ProductId(1188511885), true),
                 Arguments.of(new ProductId(38593859), true),
                 Arguments.of(new ProductId(222222), true)
+        );
+    }
+
+    private static Stream<Arguments> idsAndExpectedMultipleRepeatResults() {
+        return Stream.of(
+                Arguments.of(new ProductId(11), true),
+                Arguments.of(new ProductId(71), false)
         );
     }
 

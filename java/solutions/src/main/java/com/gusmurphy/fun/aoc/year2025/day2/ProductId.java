@@ -26,6 +26,10 @@ public class ProductId {
         return firstHalf.equals(secondHalf);
     }
 
+    public boolean justRepeatedSequenceAnyNumberOfTimes() {
+        return justTwiceRepeatedSequence();
+    }
+
     @Override
     public String toString() {
         return "ProductId{" +
