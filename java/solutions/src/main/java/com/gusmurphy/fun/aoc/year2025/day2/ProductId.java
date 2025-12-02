@@ -1,6 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day2;
 
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class ProductId {
     private final String value;
@@ -14,12 +15,11 @@ public class ProductId {
     }
 
     public boolean justTwiceRepeatedSequence() {
-        int valueLength = value.length();
-        if (valueLength % 2 != 0) {
+        if (length() % 2 != 0) {
             return false;
         }
 
-        var secondHalfStartingIndex = valueLength / 2;
+        var secondHalfStartingIndex = length() / 2;
         var firstHalf = value.substring(0, secondHalfStartingIndex);
         var secondHalf = value.substring(secondHalfStartingIndex);
 
@@ -27,7 +27,22 @@ public class ProductId {
     }
 
     public boolean justRepeatedSequenceAnyNumberOfTimes() {
-        return justTwiceRepeatedSequence();
+        if (length() % 2 != 0) {
+            return false;
+        }
+
+        var possibleSequenceLengths = IntStream.rangeClosed(1, length() / 2);
+        return possibleSequenceLengths
+                .mapToObj(sequenceLength -> value.substring(0, sequenceLength))
+                .anyMatch(this::idContainsOnly);
+    }
+
+    private boolean idContainsOnly(String sequence) {
+        return value.replaceAll(sequence, "").isEmpty();
+    }
+
+    private int length() {
+        return value.length();
     }
 
     @Override

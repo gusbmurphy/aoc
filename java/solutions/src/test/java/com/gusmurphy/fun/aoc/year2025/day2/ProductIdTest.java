@@ -36,7 +36,8 @@ public class ProductIdTest {
     private static Stream<Arguments> idsAndExpectedMultipleRepeatResults() {
         return Stream.of(
                 Arguments.of(new ProductId(11), true),
-                Arguments.of(new ProductId(71), false)
+                Arguments.of(new ProductId(71), false),
+                Arguments.of(new ProductId(121212), true)
         );
     }
 
