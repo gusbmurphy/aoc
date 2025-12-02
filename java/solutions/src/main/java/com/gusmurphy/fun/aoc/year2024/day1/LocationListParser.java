@@ -1,8 +1,7 @@
 package com.gusmurphy.fun.aoc.year2024.day1;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import com.gusmurphy.fun.aoc.helper.Reader;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -11,16 +10,12 @@ public class LocationListParser {
         var left = new ArrayList<Integer>();
         var right = new ArrayList<Integer>();
 
-        try (var reader = new BufferedReader(new FileReader(filePath))) {
-            reader.readAllLines().stream()
-                    .map(LocationListParser::parseLine)
-                    .forEach(array -> {
-                        left.add(array[0]);
-                        right.add(array[1]);
-                    });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Reader.readAllLinesFrom(filePath)
+                .map(LocationListParser::parseLine)
+                .forEach(array -> {
+                    left.add(array[0]);
+                    right.add(array[1]);
+                });
 
         return new LocationListPair(left, right);
     }

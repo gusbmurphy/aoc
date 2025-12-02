@@ -1,25 +1,15 @@
 package com.gusmurphy.fun.aoc.year2025.day1;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+import com.gusmurphy.fun.aoc.helper.Reader;
+
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class DialRotationListParser {
     public static List<DialRotation> parseFile(String absolutePath) {
-        var rotationList = new ArrayList<DialRotation>();
-
-        try (var reader = new BufferedReader(new FileReader(absolutePath))) {
-            reader.readAllLines().stream()
-                    .map(DialRotationListParser::parseLine)
-                    .forEach(rotationList::add);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return rotationList;
+        return Reader.readAllLinesFrom(absolutePath)
+                .map(DialRotationListParser::parseLine)
+                .toList();
     }
 
     private static final Pattern DIRECTION_PATTERN = Pattern.compile("[RL]");
