@@ -28,4 +28,11 @@ public class InvalidIdSumTest {
         Assertions.assertEquals(4174379265L, result);
     }
 
+    @Test
+    void myPuzzleInputForPart2() {
+        var file = new File("src/main/resources/input/year2025/day2.txt");
+        long result = InvalidIdSum.forMultipleRepeatIdsInFile(file.getAbsolutePath());
+        Assertions.assertEquals(24774350322L, result);
+    }
+
 }
