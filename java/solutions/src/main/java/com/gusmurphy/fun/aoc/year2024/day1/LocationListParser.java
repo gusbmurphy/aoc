@@ -1,6 +1,6 @@
 package com.gusmurphy.fun.aoc.year2024.day1;
 
-import com.gusmurphy.fun.aoc.helper.Reader;
+import com.gusmurphy.fun.aoc.helper.LineReader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ public class LocationListParser {
         var left = new ArrayList<Integer>();
         var right = new ArrayList<Integer>();
 
-        Reader.readAllLinesFrom(filePath)
+        LineReader.readAllLinesFrom(filePath)
                 .map(LocationListParser::parseLine)
                 .forEach(array -> {
                     left.add(array[0]);

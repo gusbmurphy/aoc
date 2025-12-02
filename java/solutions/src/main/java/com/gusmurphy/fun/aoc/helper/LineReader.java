@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-public class Reader {
-    private Reader() {
+public class LineReader {
+    private LineReader() {
     }
 
     public static Stream<String> readAllLinesFrom(String absolutePath) {

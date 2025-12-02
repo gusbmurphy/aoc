@@ -1,13 +1,13 @@
 package com.gusmurphy.fun.aoc.year2025.day1;
 
-import com.gusmurphy.fun.aoc.helper.Reader;
+import com.gusmurphy.fun.aoc.helper.LineReader;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class DialRotationListParser {
     public static List<DialRotation> parseFile(String absolutePath) {
-        return Reader.readAllLinesFrom(absolutePath)
+        return LineReader.readAllLinesFrom(absolutePath)
                 .map(DialRotationListParser::parseLine)
                 .toList();
     }
