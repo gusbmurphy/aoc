@@ -7,13 +7,13 @@ public class IdRangeListParser {
     private IdRangeListParser() {
     }
 
-    public static Stream<IdRange> parseFile(String absolutePath) {
+    public static Stream<ProductIdRange> parseFile(String absolutePath) {
         return LineReader.readAllLinesFrom(absolutePath)
                 .limit(1)
                 .flatMap(line -> Arrays.stream(line.split(",")))
                 .map(string -> {
                     var split = string.split("-");
-                    return new IdRange(Long.parseLong(split[0]), Long.parseLong(split[1]));
+                    return new ProductIdRange(Long.parseLong(split[0]), Long.parseLong(split[1]));
                 });
     }
 }

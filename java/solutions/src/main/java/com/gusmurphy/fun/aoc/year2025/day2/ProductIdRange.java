@@ -2,11 +2,11 @@ package com.gusmurphy.fun.aoc.year2025.day2;
 
 import module java.base;
 
-public class IdRange {
+public class ProductIdRange {
     private final long start;
     private final long end;
 
-    public IdRange(long start, long end) {
+    public ProductIdRange(long start, long end) {
         this.start = start;
         this.end = end;
     }
@@ -19,8 +19,8 @@ public class IdRange {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        IdRange idRange = (IdRange) o;
-        return start == idRange.start && end == idRange.end;
+        ProductIdRange productIdRange = (ProductIdRange) o;
+        return start == productIdRange.start && end == productIdRange.end;
     }
 
     @Override

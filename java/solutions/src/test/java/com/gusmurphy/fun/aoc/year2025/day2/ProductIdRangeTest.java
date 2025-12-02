@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class IdRangeTest {
+public class ProductIdRangeTest {
 
     @Test
     void aStreamCanBeGeneratedForTheRange() {
-        var range = new IdRange(3, 7);
+        var range = new ProductIdRange(3, 7);
         Stream<ProductId> result = range.stream();
 
         var expected = List.of(
