@@ -14,4 +14,11 @@ public class InvalidIdSumTest {
         Assertions.assertEquals(1227775554, result);
     }
 
+    @Test
+    void myPuzzleInput() {
+        var file = new File("src/main/resources/input/year2025/day2.txt");
+        long result = InvalidIdSum.ofFile(file.getAbsolutePath());
+        Assertions.assertEquals(12850231731L, result);
+    }
+
 }
