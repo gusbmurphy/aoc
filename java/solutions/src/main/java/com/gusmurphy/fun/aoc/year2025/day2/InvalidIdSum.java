@@ -4,10 +4,18 @@ public class InvalidIdSum {
     private InvalidIdSum() {
     }
 
-    public static long ofFile(String absolutePath) {
+    public static long forDoubleRepeatIdsInFile(String absolutePath) {
         return IdRangeListParser.parseFile(absolutePath)
                 .flatMap(ProductIdRange::stream)
                 .filter(ProductId::justTwiceRepeatedSequence)
+                .map(ProductId::value)
+                .reduce(0L, Long::sum);
+    }
+
+    public static long forMultipleRepeatIdsInFile(String absolutePath) {
+        return IdRangeListParser.parseFile(absolutePath)
+                .flatMap(ProductIdRange::stream)
+                .filter(ProductId::justRepeatedSequenceAnyNumberOfTimes)
                 .map(ProductId::value)
                 .reduce(0L, Long::sum);
     }
