@@ -1,10 +1,13 @@
 package com.gusmurphy.fun.aoc.year2025.day3;
 
 import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class BatteryBank {
     private final List<Integer> batteryJoltages;
@@ -49,20 +52,51 @@ public class BatteryBank {
     }
 
     public long maxJoltageOfNBatteries(int numberOfBatteries) {
-        var indexesOfHighestJoltageCombination = new ArrayList<Integer>();
-        int indexOfStartOfSubListToSearch = 0;
-        int numberOfIndexesToFind = numberOfBatteries;
-        while (indexesOfHighestJoltageCombination.size() < numberOfBatteries) {
-            var subListToSearch = batteryJoltages.subList(indexOfStartOfSubListToSearch, batteryJoltages.size());
-            int highestIndex = indexOfHighestJoltageAtLeastNAwayFromEnd(subListToSearch, numberOfIndexesToFind) + indexOfStartOfSubListToSearch;
+        return IntStream.iterate(numberOfBatteries, n -> n > 0, n -> n - 1)
+                .boxed()
+                .collect(new HighestJoltageCollector());
+    }
 
-            indexesOfHighestJoltageCombination.add(highestIndex);
-            indexOfStartOfSubListToSearch = highestIndex + 1;
-            numberOfIndexesToFind--;
+    private class HighestJoltageCollector implements Collector<Integer, JoltageTracker, Long> {
+        @Override
+        public Supplier<JoltageTracker> supplier() {
+            return JoltageTracker::new;
         }
 
-        var highestJoltageCombo = indexesOfHighestJoltageCombination.stream().map(batteryJoltages::get).toList();
-        return totalJoltageOf(highestJoltageCombo);
+        @Override
+        public BiConsumer<JoltageTracker, Integer> accumulator() {
+            return (tracker, joltagesLeftToFind) -> {
+                var joltagesToSearch = tracker.toSearchNext;
+                var indexOfHighestJoltage =
+                        indexOfHighestJoltageAtLeastNAwayFromEnd(joltagesToSearch, joltagesLeftToFind);
+                tracker.joltages.add(joltagesToSearch.get(indexOfHighestJoltage));
+                tracker.toSearchNext = joltagesToSearch.subList(indexOfHighestJoltage + 1, joltagesToSearch.size());
+            };
+        }
+
+        @Override
+        public BinaryOperator<JoltageTracker> combiner() {
+            return null;
+        }
+
+        @Override
+        public Function<JoltageTracker, Long> finisher() {
+            return joltageTracker -> totalJoltageOf(joltageTracker.joltages);
+        }
+
+        @Override
+        public Set<Characteristics> characteristics() {
+            return Set.of();
+        }
+    }
+
+    private class JoltageTracker {
+        final List<Integer> joltages = new ArrayList<>();
+        List<Integer> toSearchNext;
+
+        JoltageTracker() {
+            toSearchNext = batteryJoltages;
+        }
     }
 
     private static int indexOfHighestJoltageAtLeastNAwayFromEnd(List<Integer> joltages, int n) {
