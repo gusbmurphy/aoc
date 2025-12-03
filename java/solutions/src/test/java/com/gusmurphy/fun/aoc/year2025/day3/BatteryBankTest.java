@@ -29,7 +29,7 @@ public class BatteryBankTest {
 
     @ParameterizedTest
     @MethodSource
-    void largestJoltageOfNBatteries(String bankString, int numberOfBatteries, int expectedJoltage) {
+    void largestJoltageOfNBatteries(String bankString, int numberOfBatteries, long expectedJoltage) {
         var bank = new BatteryBank(bankString);
         assertEquals(expectedJoltage, bank.maxJoltageOfNBatteries(numberOfBatteries));
     }
@@ -37,7 +37,10 @@ public class BatteryBankTest {
     static Stream<Arguments> largestJoltageOfNBatteries() {
         return Stream.of(
                 Arguments.of("321", 3, 321),
-                Arguments.of("32155", 3, 355)
+                Arguments.of("32155", 3, 355),
+                Arguments.of("987654321111111", 12, 987654321111L),
+                Arguments.of("811111111111119", 12, 811111111119L),
+                Arguments.of("234234234234278", 12, 434234234278L)
         );
     }
 
