@@ -12,18 +12,31 @@ public class BatteryBankTest {
 
     @ParameterizedTest
     @MethodSource
-    void largestJoltage(String bankString, int expectedJoltage) {
+    void largestJoltageOfTwoBatteries(String bankString, int expectedJoltage) {
         var bank = new BatteryBank(bankString);
         assertEquals(expectedJoltage, bank.maxJoltageOfTwoBatteries());
     }
 
-    static Stream<Arguments> largestJoltage() {
+    static Stream<Arguments> largestJoltageOfTwoBatteries() {
         return Stream.of(
                 Arguments.of("11", 11),
                 Arguments.of("321", 32),
                 Arguments.of("811111111111119", 89),
                 Arguments.of("234234234234278", 78),
                 Arguments.of("818181911112111", 92)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource
+    void largestJoltageOfNBatteries(String bankString, int numberOfBatteries, int expectedJoltage) {
+        var bank = new BatteryBank(bankString);
+        assertEquals(expectedJoltage, bank.maxJoltageOfNBatteries(numberOfBatteries));
+    }
+
+    static Stream<Arguments> largestJoltageOfNBatteries() {
+        return Stream.of(
+                Arguments.of("321", 3, 321)
         );
     }
 

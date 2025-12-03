@@ -45,4 +45,10 @@ public class BatteryBank {
                 .max(Integer::compareTo)
                 .orElseThrow(RuntimeException::new);
     }
+
+    public int maxJoltageOfNBatteries(int numberOfBatteries) {
+        return Integer.parseInt(batteryJoltages.stream()
+                .map(String::valueOf)
+                .reduce("", String::concat));
+    }
 }
