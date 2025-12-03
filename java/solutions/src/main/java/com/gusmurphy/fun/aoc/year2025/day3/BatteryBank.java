@@ -57,41 +57,30 @@ public class BatteryBank {
     }
 
     private Stream<List<Integer>> allLengthNCombinationsOfBatteryJoltages(int n) {
-        return allLengthNCombinationsOfBatteryJoltages(batteryJoltages, n, new ArrayList<>());
+        return createCombinations(batteryJoltages, new ArrayList<>(), 0, n);
     }
 
-    // Thank you very much to this article: https://hmkcode.com/calculate-find-all-possible-combinations-of-an-array-using-java/
-    private static Stream<List<Integer>> allLengthNCombinationsOfBatteryJoltages(
-            List<Integer> allJoltages, int n, List<Integer> workingCombo) {
-        if (allJoltages.size() < n) {
-            return Stream.empty();
+    // Thank you very much to Maarten Bodewes, I was very stuck!
+    // https://stackoverflow.com/a/61031455
+    private static Stream<List<Integer>> createCombinations(List<Integer> joltages,
+                                                            List<Integer> currentCombination,
+                                                            int index,
+                                                            int missing) {
+        if (missing == 0) {
+            return Stream.of(currentCombination);
         }
 
-        if (n == 1) {
-            return allJoltages.stream()
-                    .map(joltage -> {
-                        var newList = new ArrayList<>(workingCombo);
-                        newList.add(joltage);
-                        return newList;
-                    });
-        }
-
-        if (allJoltages.size() == n) {
-            workingCombo.addAll(allJoltages);
-            return Stream.of(workingCombo);
-        }
-
-        return IntStream.range(0, allJoltages.size())
+        return IntStream.range(index, joltages.size() - missing + 1)
                 .boxed()
-                .parallel()
                 .flatMap(i -> {
-                    var newWorking = new ArrayList<>(workingCombo);
-                    newWorking.add(allJoltages.get(i));
-                    return allLengthNCombinationsOfBatteryJoltages(
-                            allJoltages.subList(i + 1, allJoltages.size()),
-                            n - 1,
-                            newWorking
-                    );
+                    List<Integer> newCombination;
+                    if (i == joltages.size() - missing) {
+                        newCombination = currentCombination;
+                    } else {
+                        newCombination = new ArrayList<>(currentCombination);
+                    }
+                    newCombination.add(joltages.get(i));
+                    return createCombinations(joltages, newCombination, i + 1, missing - 1);
                 });
     }
 }
