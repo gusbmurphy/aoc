@@ -1,8 +1,8 @@
 package com.gusmurphy.fun.aoc.year2025.day3;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -49,38 +49,40 @@ public class BatteryBank {
     }
 
     public long maxJoltageOfNBatteries(int numberOfBatteries) {
-        return allLengthNCombinationsOfBatteryJoltages(numberOfBatteries)
-                .map(list -> list.stream().map(String::valueOf).reduce("", String::concat))
-                .map(Long::valueOf)
-                .max(Long::compareTo)
-                .orElseThrow();
-    }
-
-    private Stream<List<Integer>> allLengthNCombinationsOfBatteryJoltages(int n) {
-        return createCombinations(batteryJoltages, new ArrayList<>(), 0, n);
-    }
-
-    // Thank you very much to Maarten Bodewes, I was very stuck!
-    // https://stackoverflow.com/a/61031455
-    private static Stream<List<Integer>> createCombinations(List<Integer> joltages,
-                                                            List<Integer> currentCombination,
-                                                            int index,
-                                                            int missing) {
-        if (missing == 0) {
-            return Stream.of(currentCombination);
+        if (batteryJoltages.size() == numberOfBatteries) {
+            return totalJoltageOf(batteryJoltages);
         }
 
-        return IntStream.range(index, joltages.size() - missing + 1)
-                .boxed()
-                .flatMap(i -> {
-                    List<Integer> newCombination;
-                    if (i == joltages.size() - missing) {
-                        newCombination = currentCombination;
-                    } else {
-                        newCombination = new ArrayList<>(currentCombination);
-                    }
-                    newCombination.add(joltages.get(i));
-                    return createCombinations(joltages, newCombination, i + 1, missing - 1);
-                });
+        var indexesOfHighestJoltageCombination = new ArrayList<Integer>();
+        int indexOfStartOfSubListToSearch = 0;
+        int numberOfIndexesToFind = numberOfBatteries;
+        while (indexesOfHighestJoltageCombination.size() < numberOfBatteries) {
+            var subListToSearch = batteryJoltages.subList(indexOfStartOfSubListToSearch, batteryJoltages.size());
+            int highestIndex = indexOfHighestJoltageAtLeastNAwayFromEnd(subListToSearch, numberOfIndexesToFind) + indexOfStartOfSubListToSearch;
+
+            indexesOfHighestJoltageCombination.add(highestIndex);
+            indexOfStartOfSubListToSearch = highestIndex + 1;
+            numberOfIndexesToFind--;
+        }
+
+        var highestJoltageCombo = indexesOfHighestJoltageCombination.stream().map(batteryJoltages::get).toList();
+        return totalJoltageOf(highestJoltageCombo);
+    }
+
+    private static int indexOfHighestJoltageAtLeastNAwayFromEnd(List<Integer> joltages, int n) {
+        return IntStream.range(0, joltages.size() - n + 1)
+                        .boxed()
+                        .collect(Collectors.toMap(Function.identity(), joltages::get))
+                        .entrySet()
+                        .stream()
+                        .sorted(Comparator.comparingInt(Map.Entry::getKey))
+                        .max(Comparator.comparingInt(Map.Entry::getValue))
+                        .orElseThrow()
+                        .getKey();
+    }
+
+    private static long totalJoltageOf(List<Integer> joltages) {
+        var string = joltages.stream().map(String::valueOf).reduce("", String::concat);
+        return Long.parseLong(string);
     }
 }
