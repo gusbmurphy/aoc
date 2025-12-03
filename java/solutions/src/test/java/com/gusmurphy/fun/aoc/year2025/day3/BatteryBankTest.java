@@ -36,7 +36,8 @@ public class BatteryBankTest {
 
     static Stream<Arguments> largestJoltageOfNBatteries() {
         return Stream.of(
-                Arguments.of("321", 3, 321)
+                Arguments.of("321", 3, 321),
+                Arguments.of("32155", 3, 355)
         );
     }
 
