@@ -15,5 +15,11 @@ public class SumOfMaxJoltagesTest {
         assertEquals(357, result);
     }
 
+    @Test
+    void myInputForPart1() {
+        var file = new File("src/main/resources/input/year2025/day3.txt");
+        long result = SumOfMaxJoltages.forPairsInFile(file.getAbsolutePath());
+        assertEquals(16887, result);
+    }
 
 }
