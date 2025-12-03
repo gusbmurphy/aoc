@@ -38,13 +38,18 @@ public class BatteryBank {
     public long maxJoltageOfNBatteries(int numberOfBatteries) {
         return IntStream.iterate(numberOfBatteries, n -> n > 0, n -> n - 1)
                 .boxed()
-                .collect(new HighestJoltageCollector());
+                .collect(new HighestJoltageCollector(batteryJoltages));
     }
 
-    private class HighestJoltageCollector implements Collector<Integer, JoltageTracker, Long> {
+    private static class HighestJoltageCollector implements Collector<Integer, JoltageTracker, Long> {
+        private final List<Integer> initialToSearch;
+        HighestJoltageCollector(List<Integer> toSearch) {
+            initialToSearch = toSearch;
+        }
+
         @Override
         public Supplier<JoltageTracker> supplier() {
-            return JoltageTracker::new;
+            return () -> new JoltageTracker(initialToSearch);
         }
 
         @Override
@@ -74,12 +79,12 @@ public class BatteryBank {
         }
     }
 
-    private class JoltageTracker {
+    private static class JoltageTracker {
         final List<Integer> joltages = new ArrayList<>();
         List<Integer> toSearchNext;
 
-        JoltageTracker() {
-            toSearchNext = batteryJoltages;
+        JoltageTracker(List<Integer> toSearch) {
+            toSearchNext = toSearch;
         }
     }
 
