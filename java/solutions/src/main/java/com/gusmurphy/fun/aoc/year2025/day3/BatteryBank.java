@@ -31,24 +31,8 @@ public class BatteryBank {
         return Objects.hashCode(batteryJoltages);
     }
 
-    public int maxJoltageOfTwoBatteries() {
-        return IntStream.range(0, batteryJoltages.size() - 1)
-                .mapToObj(startIndex -> batteryJoltages.subList(startIndex, batteryJoltages.size()))
-                .map(BatteryBank::maxJoltageFromPairInStreamStartingWithFirst)
-                .max(Integer::compareTo)
-                .orElseThrow(RuntimeException::new);
-    }
-
-    private static Integer maxJoltageFromPairInStreamStartingWithFirst(List<Integer> joltages) {
-        var firstJoltage = joltages.getFirst().toString();
-
-        return joltages.stream()
-                .skip(1)
-                .map(String::valueOf)
-                .map(firstJoltage::concat)
-                .map(Integer::parseInt)
-                .max(Integer::compareTo)
-                .orElseThrow(RuntimeException::new);
+    public long maxJoltageOfTwoBatteries() {
+        return maxJoltageOfNBatteries(2);
     }
 
     public long maxJoltageOfNBatteries(int numberOfBatteries) {

@@ -3,14 +3,12 @@ package com.gusmurphy.fun.aoc.year2025.day3;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class SumOfMaxJoltages {
     public static long forPairsInFile(String absolutePath) {
         return BatteryBankParser.parseFile(absolutePath)
                 .map(BatteryBank::maxJoltageOfTwoBatteries)
-                .reduce(Integer::sum)
-                .map(Long::valueOf)
+                .reduce(Long::sum)
                 .orElseThrow();
     }
 
