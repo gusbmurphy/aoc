@@ -20,7 +20,8 @@ public class BatteryBankTest {
 
     static Stream<Arguments> largestJoltage() {
         return Stream.of(
-                Arguments.of("11", 11)
+                Arguments.of("11", 11),
+                Arguments.of("321", 32)
         );
     }
 
