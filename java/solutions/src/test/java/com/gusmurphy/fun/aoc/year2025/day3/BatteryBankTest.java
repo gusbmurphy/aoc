@@ -1,6 +1,5 @@
 package com.gusmurphy.fun.aoc.year2025.day3;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -22,7 +21,8 @@ public class BatteryBankTest {
         return Stream.of(
                 Arguments.of("11", 11),
                 Arguments.of("321", 32),
-                Arguments.of("811111111111119", 89)
+                Arguments.of("811111111111119", 89),
+                Arguments.of("234234234234278", 78)
         );
     }
 

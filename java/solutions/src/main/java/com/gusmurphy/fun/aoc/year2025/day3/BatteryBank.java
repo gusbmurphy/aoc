@@ -2,6 +2,7 @@ package com.gusmurphy.fun.aoc.year2025.day3;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class BatteryBank {
     private final List<Integer> batteryJoltages;
@@ -26,13 +27,22 @@ public class BatteryBank {
     }
 
     public int maxJoltageOfTwoBatteries() {
-        var firstJoltage = batteryJoltages.getFirst().toString();
+        return IntStream.range(0, batteryJoltages.size() - 1)
+                .mapToObj(startIndex -> batteryJoltages.subList(startIndex, batteryJoltages.size()))
+                .map(BatteryBank::maxJoltageFromPairInStreamStartingWithFirst)
+                .max(Integer::compareTo)
+                .orElseThrow(RuntimeException::new);
+    }
 
-        return batteryJoltages.stream()
+    private static Integer maxJoltageFromPairInStreamStartingWithFirst(List<Integer> joltages) {
+        var firstJoltage = joltages.getFirst().toString();
+
+        return joltages.stream()
                 .skip(1)
                 .map(String::valueOf)
                 .map(firstJoltage::concat)
                 .map(Integer::parseInt)
-                .max(Integer::compareTo).orElse(0);
+                .max(Integer::compareTo)
+                .orElseThrow(RuntimeException::new);
     }
 }
