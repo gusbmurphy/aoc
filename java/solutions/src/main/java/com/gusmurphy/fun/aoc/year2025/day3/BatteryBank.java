@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class BatteryBank {
     private final List<Integer> batteryJoltages;
@@ -49,50 +50,48 @@ public class BatteryBank {
 
     public long maxJoltageOfNBatteries(int numberOfBatteries) {
         return allLengthNCombinationsOfBatteryJoltages(numberOfBatteries)
-                .stream()
                 .map(list -> list.stream().map(String::valueOf).reduce("", String::concat))
                 .map(Long::valueOf)
                 .max(Long::compareTo)
                 .orElseThrow();
     }
 
-    private List<List<Integer>> allLengthNCombinationsOfBatteryJoltages(int n) {
-        List<List<Integer>> results = new ArrayList<>();
-        allLengthNCombinationsOfBatteryJoltages(batteryJoltages, n, new ArrayList<>(), results);
-        return results;
+    private Stream<List<Integer>> allLengthNCombinationsOfBatteryJoltages(int n) {
+        return allLengthNCombinationsOfBatteryJoltages(batteryJoltages, n, new ArrayList<>());
     }
 
     // Thank you very much to this article: https://hmkcode.com/calculate-find-all-possible-combinations-of-an-array-using-java/
-    private static void allLengthNCombinationsOfBatteryJoltages(
-            List<Integer> allJoltages, int n, List<Integer> workingCombo, List<List<Integer>> results) {
+    private static Stream<List<Integer>> allLengthNCombinationsOfBatteryJoltages(
+            List<Integer> allJoltages, int n, List<Integer> workingCombo) {
         if (allJoltages.size() < n) {
-            return;
+            return Stream.empty();
         }
 
         if (n == 1) {
-            for (var i : allJoltages) {
-                var newList = new ArrayList<>(workingCombo);
-                newList.add(i);
-                results.add(newList);
-            }
-            return;
+            return allJoltages.stream()
+                    .map(joltage -> {
+                        var newList = new ArrayList<>(workingCombo);
+                        newList.add(joltage);
+                        return newList;
+                    });
         }
 
         if (allJoltages.size() == n) {
             workingCombo.addAll(allJoltages);
-            results.add(workingCombo);
-            return;
+            return Stream.of(workingCombo);
         }
 
-        for (int i = 0; i < allJoltages.size(); i++) {
-            var newWorking = new ArrayList<>(workingCombo);
-            newWorking.add(allJoltages.get(i));
-            allLengthNCombinationsOfBatteryJoltages(
-                    allJoltages.subList(i + 1, allJoltages.size()),
-                    n - 1,
-                    newWorking,
-                    results
-            );
-        }
+        return IntStream.range(0, allJoltages.size())
+                .boxed()
+                .parallel()
+                .flatMap(i -> {
+                    var newWorking = new ArrayList<>(workingCombo);
+                    newWorking.add(allJoltages.get(i));
+                    return allLengthNCombinationsOfBatteryJoltages(
+                            allJoltages.subList(i + 1, allJoltages.size()),
+                            n - 1,
+                            newWorking
+                    );
+                });
     }
 }
