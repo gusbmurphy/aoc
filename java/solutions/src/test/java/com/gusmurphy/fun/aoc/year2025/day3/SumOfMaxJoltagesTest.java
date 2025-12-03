@@ -33,7 +33,7 @@ public class SumOfMaxJoltagesTest {
     void myInputForPart2() {
         var file = new File("src/main/resources/input/year2025/day3.txt");
         long result = SumOfMaxJoltages.for12BatteryCombosInFile(file.getAbsolutePath());
-        assertEquals(16887, result);
+        assertEquals(167302518850275L, result);
     }
 
 }
