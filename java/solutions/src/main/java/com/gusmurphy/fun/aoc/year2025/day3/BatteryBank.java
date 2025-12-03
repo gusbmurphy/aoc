@@ -67,14 +67,14 @@ public class BatteryBank {
 
     private static int indexOfHighestJoltageAtLeastNAwayFromEnd(List<Integer> joltages, int n) {
         return IntStream.range(0, joltages.size() - n + 1)
-                        .boxed()
-                        .collect(Collectors.toMap(Function.identity(), joltages::get))
-                        .entrySet()
-                        .stream()
-                        .sorted(Comparator.comparingInt(Map.Entry::getKey))
-                        .max(Comparator.comparingInt(Map.Entry::getValue))
-                        .orElseThrow()
-                        .getKey();
+                .boxed()
+                .collect(Collectors.toMap(Function.identity(), joltages::get))
+                .entrySet()
+                .stream()
+                .sorted(Comparator.comparingInt(Map.Entry::getKey))
+                .max(Comparator.comparingInt(Map.Entry::getValue))
+                .orElseThrow()
+                .getKey();
     }
 
     private static long totalJoltageOf(List<Integer> joltages) {
