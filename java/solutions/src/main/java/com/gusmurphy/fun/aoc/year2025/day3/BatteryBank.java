@@ -26,11 +26,13 @@ public class BatteryBank {
     }
 
     public int maxJoltageOfTwoBatteries() {
-        var string = batteryJoltages.stream()
-                .limit(2)
-                .map(Object::toString)
-                .reduce("", String::concat);
+        var firstJoltage = batteryJoltages.getFirst().toString();
 
-        return Integer.parseInt(string);
+        return batteryJoltages.stream()
+                .skip(1)
+                .map(String::valueOf)
+                .map(firstJoltage::concat)
+                .map(Integer::parseInt)
+                .max(Integer::compareTo).orElse(0);
     }
 }
