@@ -22,4 +22,18 @@ public class SumOfMaxJoltagesTest {
         assertEquals(16887, result);
     }
 
+    @Test
+    void exampleFromPuzzlePart2() {
+        var file = new File("src/test/resources/year2025/day3/example.txt");
+        long result = SumOfMaxJoltages.for12BatteryCombosInFile(file.getAbsolutePath());
+        assertEquals(3121910778619L, result);
+    }
+
+    @Test
+    void myInputForPart2() {
+        var file = new File("src/main/resources/input/year2025/day3.txt");
+        long result = SumOfMaxJoltages.for12BatteryCombosInFile(file.getAbsolutePath());
+        assertEquals(16887, result);
+    }
+
 }

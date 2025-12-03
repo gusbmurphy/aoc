@@ -8,4 +8,12 @@ public class SumOfMaxJoltages {
                 .map(Long::valueOf)
                 .orElseThrow();
     }
+
+    public static long for12BatteryCombosInFile(String absolutePath) {
+        return BatteryBankParser.parseFile(absolutePath)
+                .parallel()
+                .map(bank -> bank.maxJoltageOfNBatteries(12))
+                .reduce(Long::sum)
+                .orElseThrow();
+    }
 }
