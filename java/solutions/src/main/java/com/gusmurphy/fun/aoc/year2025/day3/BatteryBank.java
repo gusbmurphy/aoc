@@ -49,10 +49,6 @@ public class BatteryBank {
     }
 
     public long maxJoltageOfNBatteries(int numberOfBatteries) {
-        if (batteryJoltages.size() == numberOfBatteries) {
-            return totalJoltageOf(batteryJoltages);
-        }
-
         var indexesOfHighestJoltageCombination = new ArrayList<Integer>();
         int indexOfStartOfSubListToSearch = 0;
         int numberOfIndexesToFind = numberOfBatteries;
