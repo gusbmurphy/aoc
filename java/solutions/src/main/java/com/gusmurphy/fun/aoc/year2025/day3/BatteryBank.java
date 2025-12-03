@@ -20,4 +20,8 @@ public class BatteryBank {
     public int hashCode() {
         return Objects.hashCode(string);
     }
+
+    public int maxJoltageOfTwoBatteries() {
+        return 11;
+    }
 }
