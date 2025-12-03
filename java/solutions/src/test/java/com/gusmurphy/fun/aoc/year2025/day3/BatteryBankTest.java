@@ -22,7 +22,8 @@ public class BatteryBankTest {
                 Arguments.of("11", 11),
                 Arguments.of("321", 32),
                 Arguments.of("811111111111119", 89),
-                Arguments.of("234234234234278", 78)
+                Arguments.of("234234234234278", 78),
+                Arguments.of("818181911112111", 92)
         );
     }
 
