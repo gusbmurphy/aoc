@@ -5,4 +5,16 @@ public class DepartmentFloorSolver {
         var floor = FloorGridParser.parseFile(absolutePath);
         return floor.accessibleRollCount();
     }
+
+    // TODO: Not the best here!
+    public static long removableRollCountFromFile(String absolutePath) {
+        var floor = FloorGridParser.parseFile(absolutePath);
+
+        long removableRollCount = 0;
+        while (floor.accessibleRollCount() > 0) {
+            removableRollCount += floor.accessibleRollCount();
+            floor = floor.removeAllAccessibleRolls();
+        }
+        return removableRollCount;
+    }
 }

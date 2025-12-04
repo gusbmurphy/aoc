@@ -22,4 +22,18 @@ public class DepartmentFloorSolverTest {
         assertEquals(1395, result);
     }
 
+    @Test
+    void part2Example() {
+        var file = new File("src/test/resources/year2025/day4/example-grid.txt");
+        long result = DepartmentFloorSolver.removableRollCountFromFile(file.getAbsolutePath());
+        assertEquals(43, result);
+    }
+
+    @Test
+    void part2MyInput() {
+        var file = new File("src/main/resources/input/year2025/day4.txt");
+        long result = DepartmentFloorSolver.removableRollCountFromFile(file.getAbsolutePath());
+        assertEquals(8451, result);
+    }
+
 }

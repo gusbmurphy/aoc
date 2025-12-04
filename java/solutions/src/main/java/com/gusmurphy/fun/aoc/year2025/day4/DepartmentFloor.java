@@ -22,6 +22,10 @@ public class DepartmentFloor {
                 .toList();
     }
 
+    private DepartmentFloor(List<List<Boolean>> rows) {
+        this.rows = rows;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -34,14 +38,35 @@ public class DepartmentFloor {
         return Objects.hashCode(rows);
     }
 
+    public DepartmentFloor removeAllAccessibleRolls() {
+        var remainingRollPositions = allPositions()
+                .filter(this::positionIsOccupied)
+                .filter(position -> !positionHasAccessibleRoll(position))
+                .toList();
+
+        var newRows = IntStream.range(0, gridHeight())
+                .boxed()
+                .map(y -> IntStream.range(0, gridWidth())
+                        .boxed()
+                        .map(x -> remainingRollPositions.stream()
+                                .anyMatch(p -> p.x == x && p.y == y))
+                        .toList()
+                )
+                .toList();
+
+        return new DepartmentFloor(newRows);
+    }
+
     public long accessibleRollCount() {
         return allPositions()
                 .filter(this::positionIsOccupied)
-                .map(position -> position.surroundingPositions()
-                        .filter(this::positionIsOnGrid)
-                        .filter(this::positionIsOccupied)
-                        .count())
-                .filter(surroundingOccupiedCount -> surroundingOccupiedCount < 4)
+                .filter(this::positionHasAccessibleRoll)
+                .count();
+    }
+
+    public long totalRollCount() {
+        return allPositions()
+                .filter(this::positionIsOccupied)
                 .count();
     }
 
@@ -54,6 +79,19 @@ public class DepartmentFloor {
 
     private boolean positionIsOccupied(GridPosition position) {
         return rows.get(position.y).get(position.x);
+    }
+
+    private boolean positionHasAccessibleRoll(GridPosition position) {
+        if (!positionIsOccupied(position)) {
+            return false;
+        }
+
+        var surroundingOccupiedCount = position.surroundingPositions()
+                .filter(this::positionIsOnGrid)
+                .filter(this::positionIsOccupied)
+                .count();
+
+        return surroundingOccupiedCount < 4;
     }
 
     private Stream<GridPosition> allPositions() {
