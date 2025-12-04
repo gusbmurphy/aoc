@@ -1,20 +1,20 @@
 package com.gusmurphy.fun.aoc.year2025.day4;
 
+import java.util.stream.Stream;
+
 public class DepartmentFloorSolver {
     public static long accessibleRollCountFromFile(String absolutePath) {
         var floor = FloorGridParser.parseFile(absolutePath);
         return floor.accessibleRollCount();
     }
 
-    // TODO: Not the best here!
     public static long removableRollCountFromFile(String absolutePath) {
-        var floor = FloorGridParser.parseFile(absolutePath);
+        var initialFloor = FloorGridParser.parseFile(absolutePath);
 
-        long removableRollCount = 0;
-        while (floor.accessibleRollCount() > 0) {
-            removableRollCount += floor.accessibleRollCount();
-            floor = floor.removeAllAccessibleRolls();
-        }
-        return removableRollCount;
+        return Stream.iterate(initialFloor,
+                        floor -> floor.accessibleRollCount() > 0,
+                        DepartmentFloor::removeAllAccessibleRolls)
+                .mapToLong(DepartmentFloor::accessibleRollCount)
+                .sum();
     }
 }
