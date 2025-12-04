@@ -34,41 +34,52 @@ public class DepartmentFloor {
         return Objects.hashCode(rows);
     }
 
-    public int accessibleRollCount() {
-        int floorHeight = rows.size();
-        int floorWidth = rows.getFirst().size();
-        int count = 0;
+    public long accessibleRollCount() {
+        return allPositions()
+                .filter(this::positionIsOccupied)
+                .map(position -> position.surroundingPositions()
+                        .filter(this::positionIsOnGrid)
+                        .filter(this::positionIsOccupied)
+                        .count())
+                .filter(surroundingOccupiedCount -> surroundingOccupiedCount < 4)
+                .count();
+    }
 
-        for (int y = 0; y < floorHeight; y++) {
-            for (int x = 0; x < floorWidth; x++) {
-                if (rows.get(y).get(x) == false) {
-                    continue;
-                }
+    private boolean positionIsOnGrid(GridPosition position) {
+        return position.x >= 0
+                && position.x < gridWidth()
+                && position.y >= 0
+                && position.y < gridHeight();
+    }
 
-                var position = new GridPosition(x, y);
-                var occupiedSurroundingPositionCount = position.surroundingPositions()
-                        .filter(p -> p.x() < floorWidth && p.y() < floorHeight)
-                        .map(p -> rows.get(p.y()).get(p.x()))
-                        .filter(Boolean::booleanValue)
-                        .count();
+    private boolean positionIsOccupied(GridPosition position) {
+        return rows.get(position.y).get(position.x);
+    }
 
-                if (occupiedSurroundingPositionCount < 4) {
-                    count++;
-                }
-            }
-        }
+    private Stream<GridPosition> allPositions() {
+        int gridWidth = rows.getFirst().size();
+        int gridHeight = rows.size();
 
-        return count;
+        return IntStream.range(0, gridWidth)
+                .boxed()
+                .flatMap(x -> IntStream.range(0, gridHeight)
+                        .mapToObj(y -> new GridPosition(x, y)));
+    }
+
+    private int gridWidth() {
+        return rows.getFirst().size();
+    }
+
+    private int gridHeight() {
+        return rows.size();
     }
 
     record GridPosition(int x, int y) {
         Stream<GridPosition> surroundingPositions() {
             return IntStream.rangeClosed(x - 1, x + 1)
-                    .filter(otherX -> otherX >= 0)
                     .boxed()
                     .flatMap(otherX ->
                             IntStream.rangeClosed(y - 1, y + 1)
-                                    .filter(otherY -> otherY >= 0)
                                     .boxed()
                                     .map(otherY -> new GridPosition(otherX, otherY))
                     )
