@@ -53,6 +53,13 @@ public class JaggedIdRange {
         return new JaggedIdRange(mergedRanges);
     }
 
+    @Override
+    public String toString() {
+        return "JaggedIdRange{" +
+                "rangeList=" + rangeList +
+                '}';
+    }
+
     public record IdRange(long lower, long upper) {
         public IdRange {
             if (lower > upper) {
@@ -78,6 +85,14 @@ public class JaggedIdRange {
             }
 
             return sortedRanges.stream();
+        }
+
+        @Override
+        public String toString() {
+            return "IdRange{" +
+                    "lower=" + lower +
+                    ", upper=" + upper +
+                    '}';
         }
     }
 
