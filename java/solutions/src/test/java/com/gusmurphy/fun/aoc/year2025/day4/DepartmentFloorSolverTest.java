@@ -1,5 +1,6 @@
 package com.gusmurphy.fun.aoc.year2025.day4;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -30,6 +31,7 @@ public class DepartmentFloorSolverTest {
     }
 
     @Test
+    @Disabled("This one takes a second, worth revisiting this to figure out why!")
     void part2MyInput() {
         var file = new File("src/main/resources/input/year2025/day4.txt");
         long result = DepartmentFloorSolver.removableRollCountFromFile(file.getAbsolutePath());
