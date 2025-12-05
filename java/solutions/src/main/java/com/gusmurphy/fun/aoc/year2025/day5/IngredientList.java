@@ -18,6 +18,13 @@ public class IngredientList {
                 .count();
     }
 
+    public long possibleFreshIngredientCount() {
+        return idRangeList.stream()
+                .flatMap(ingredientIdRange -> ingredientIdRange.allIds().boxed())
+                .distinct()
+                .count();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

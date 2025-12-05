@@ -21,4 +21,11 @@ public class IngredientListSolverTest {
         Assertions.assertEquals(601, actual);
     }
 
+    @Test
+    void part2Example() {
+        var file = new File("src/test/resources/year2025/day5/example.txt");
+        long actual = IngredientListSolver.countPossibleFreshIds(file.getAbsolutePath());
+        Assertions.assertEquals(14, actual);
+    }
+
 }

@@ -5,4 +5,9 @@ public class IngredientListSolver {
         var ingredientList = IngredientListParser.parseFile(absolutePath);
         return ingredientList.freshIngredientCount();
     }
+
+    public static long countPossibleFreshIds(String absolutePath) {
+        var ingredientList = IngredientListParser.parseFile(absolutePath);
+        return ingredientList.possibleFreshIngredientCount();
+    }
 }

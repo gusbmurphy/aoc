@@ -1,6 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day5;
 
 import java.util.Objects;
+import java.util.stream.LongStream;
 
 public class IngredientIdRange {
     private final long lower;
@@ -12,6 +13,10 @@ public class IngredientIdRange {
     public IngredientIdRange(long lower, long upper) {
         this.lower = lower;
         this.upper = upper;
+    }
+
+    public LongStream allIds() {
+        return LongStream.rangeClosed(lower, upper);
     }
 
     @Override
