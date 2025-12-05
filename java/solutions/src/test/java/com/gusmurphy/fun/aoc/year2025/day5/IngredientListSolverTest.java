@@ -35,7 +35,7 @@ public class IngredientListSolverTest {
     void part2MyInput() {
         var file = new File("src/main/resources/input/year2025/day5.txt");
         long actual = IngredientListSolver.countPossibleFreshIds(file.getAbsolutePath());
-        Assertions.assertEquals(0, actual);
+        Assertions.assertEquals(367899984917516L, actual);
     }
 
 }
