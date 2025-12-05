@@ -1,6 +1,5 @@
 package com.gusmurphy.fun.aoc.year2025.day5;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.LongStream;
@@ -17,12 +16,9 @@ public class IngredientIdRange {
     }
 
     public IngredientIdRange(Long... stops) {
-        if (stops.length % 2 != 0) {
-            throw new IllegalArgumentException();
-        }
-
-        rangeList = Stream.iterate(0, i -> i < stops.length - 1, i -> i + 2)
+        rangeList = Stream.iterate(0, i -> i < stops.length - 1, i -> i + 1)
                 .map(i -> new SingleRange(stops[i], stops[i + 1]))
+                .filter(r -> r.lower != r.upper)
                 .toList();
     }
 

@@ -25,6 +25,11 @@ class IngredientIdRangeTest {
                         new IngredientIdRange(2, 3),
                         new IngredientIdRange(8, 9),
                         new IngredientIdRange(2L, 3L, 8L, 9L)
+                ),
+                Arguments.of(
+                        new IngredientIdRange(2, 9),
+                        new IngredientIdRange(9, 12),
+                        new IngredientIdRange(2L, 9L, 12L)
                 )
         );
     }
