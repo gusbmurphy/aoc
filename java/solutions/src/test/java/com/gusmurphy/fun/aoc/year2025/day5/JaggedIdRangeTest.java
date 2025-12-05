@@ -38,4 +38,21 @@ class JaggedIdRangeTest {
                 )
         );
     }
+
+    @ParameterizedTest
+    @MethodSource
+    void rangeIncludes(long l, boolean expected) {
+        var actual = new JaggedIdRange.IdRange(4, 6).includes(l);
+        Assertions.assertEquals(expected, actual);
+    }
+
+    private static Stream<Arguments> rangeIncludes() {
+        return Stream.of(
+                Arguments.of(3, false),
+                Arguments.of(7, false),
+                Arguments.of(4, true),
+                Arguments.of(5, true),
+                Arguments.of(6, true)
+        );
+    }
 }
