@@ -69,4 +69,15 @@ class IngredientIdRangeTest {
 
         Assertions.assertIterableEquals(expected.toList(), actual.toList());
     }
+
+    @Test
+    void whenRangesAreOtherwiseOverlappingWeGetTheCombination() {
+        var a = new IngredientIdRange(1, 8);
+        var b = new IngredientIdRange(3, 21);
+
+        var expected = Stream.of(new IngredientIdRange(1, 21));
+        var actual = a.mergeWith(b);
+
+        Assertions.assertIterableEquals(expected.toList(), actual.toList());
+    }
 }
