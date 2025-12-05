@@ -13,7 +13,7 @@ class JaggedIdRangeTest {
     @MethodSource
     void mergingRanges(JaggedIdRange a, JaggedIdRange b, JaggedIdRange expected) {
         var actualForwards = a.mergeWith(b);
-        var actualBackwards = a.mergeWith(b);
+        var actualBackwards = b.mergeWith(a);
 
         Assertions.assertEquals(expected, actualForwards);
         Assertions.assertEquals(expected, actualBackwards);
