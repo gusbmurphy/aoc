@@ -7,11 +7,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-class IngredientIdRangeTest {
+class JaggedIdRangeTest {
 
     @ParameterizedTest
     @MethodSource
-    void mergingRanges(IngredientIdRange a, IngredientIdRange b, IngredientIdRange expected) {
+    void mergingRanges(JaggedIdRange a, JaggedIdRange b, JaggedIdRange expected) {
         var actualForwards = a.mergeWith(b);
         var actualBackwards = a.mergeWith(b);
 
@@ -22,19 +22,19 @@ class IngredientIdRangeTest {
     private static Stream<Arguments> mergingRanges() {
         return Stream.of(
                 Arguments.of(
-                        new IngredientIdRange(2, 3),
-                        new IngredientIdRange(8, 9),
-                        new IngredientIdRange(2L, 3L, 8L, 9L)
+                        new JaggedIdRange(2, 3),
+                        new JaggedIdRange(8, 9),
+                        new JaggedIdRange(2L, 3L, 8L, 9L)
                 ),
                 Arguments.of(
-                        new IngredientIdRange(2, 9),
-                        new IngredientIdRange(9, 12),
-                        new IngredientIdRange(2L, 12L)
+                        new JaggedIdRange(2, 9),
+                        new JaggedIdRange(9, 12),
+                        new JaggedIdRange(2L, 12L)
                 ),
                 Arguments.of(
-                        new IngredientIdRange(2, 9),
-                        new IngredientIdRange(3, 12),
-                        new IngredientIdRange(2L, 12L)
+                        new JaggedIdRange(2, 9),
+                        new JaggedIdRange(3, 12),
+                        new JaggedIdRange(2L, 12L)
                 )
         );
     }

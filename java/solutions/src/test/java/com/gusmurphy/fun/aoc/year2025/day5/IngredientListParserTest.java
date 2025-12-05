@@ -15,8 +15,8 @@ public class IngredientListParserTest {
 
         var expected = new IngredientList(
                 List.of(
-                        new IngredientIdRange(3, 5),
-                        new IngredientIdRange(10, 14)
+                        new JaggedIdRange.IdRange(3L, 5L),
+                        new JaggedIdRange.IdRange(10L, 14L)
                 ),
                 List.of(1L, 5L, 8L)
         );

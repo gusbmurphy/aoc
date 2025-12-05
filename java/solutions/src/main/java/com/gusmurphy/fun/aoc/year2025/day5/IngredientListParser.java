@@ -18,7 +18,7 @@ public class IngredientListParser {
     }
 
     private static class IngredientListAccumulator {
-        List<IngredientIdRange> ranges = new ArrayList<>();
+        List<JaggedIdRange.IdRange> ranges = new ArrayList<>();
         List<Long> freshIds = new ArrayList<>();
     }
 
@@ -48,7 +48,7 @@ public class IngredientListParser {
 
         private void addRange(IngredientListAccumulator accumulator, String string) {
             var bounds = string.split("-");
-            var range = new IngredientIdRange(
+            var range = new JaggedIdRange.IdRange(
                     Long.parseLong(bounds[0]),
                     Long.parseLong(bounds[1])
             );
