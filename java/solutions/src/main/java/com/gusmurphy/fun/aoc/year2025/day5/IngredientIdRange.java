@@ -2,6 +2,7 @@ package com.gusmurphy.fun.aoc.year2025.day5;
 
 import java.util.Objects;
 import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 public class IngredientIdRange {
     private final long lower;
@@ -33,5 +34,12 @@ public class IngredientIdRange {
 
     public boolean includes(long id) {
         return id >= lower && id <= upper;
+    }
+
+    public Stream<IngredientIdRange> mergeWith(IngredientIdRange other) {
+        return Stream.of(
+                this,
+                other
+        );
     }
 }
