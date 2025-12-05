@@ -1,6 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day5;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -26,6 +27,14 @@ public class IngredientListSolverTest {
         var file = new File("src/test/resources/year2025/day5/example.txt");
         long actual = IngredientListSolver.countPossibleFreshIds(file.getAbsolutePath());
         Assertions.assertEquals(14, actual);
+    }
+
+    @Test
+    @Disabled
+    void part2MyInput() {
+        var file = new File("src/main/resources/input/year2025/day5.txt");
+        long actual = IngredientListSolver.countPossibleFreshIds(file.getAbsolutePath());
+        Assertions.assertEquals(0, actual);
     }
 
 }
