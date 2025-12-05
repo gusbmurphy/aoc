@@ -16,6 +16,16 @@ public class IngredientIdRange {
         rangeList = List.of(new SingleRange(lower, upper));
     }
 
+    public IngredientIdRange(Long... stops) {
+        if (stops.length % 2 != 0) {
+            throw new IllegalArgumentException();
+        }
+
+        rangeList = Stream.iterate(0, i -> i < stops.length - 1, i -> i + 2)
+                .map(i -> new SingleRange(stops[i], stops[i + 1]))
+                .toList();
+    }
+
     public LongStream allIds() {
         return LongStream.rangeClosed(rangeList.getFirst().lower, rangeList.getFirst().upper);
     }
@@ -24,28 +34,13 @@ public class IngredientIdRange {
         return id >= rangeList.getFirst().lower && id <= rangeList.getFirst().upper;
     }
 
-    public Stream<IngredientIdRange> mergeWith(IngredientIdRange other) {
-        var sorted = Stream.of(this, other).sorted(Comparator.comparingLong(r -> r.rangeList.getFirst().lower)).toList();
-        var startingRange = sorted.getFirst();
-        var endingRange = sorted.getLast();
+    public IngredientIdRange mergeWith(IngredientIdRange other) {
+        var allStops = Stream.concat(this.rangeList.stream(), other.rangeList.stream())
+                .flatMap(r -> Stream.of(r.lower, r.upper))
+                .sorted();
 
-        if (startingRange.rangeList.getFirst().upper + 1 == endingRange.rangeList.getFirst().lower) {
-            return Stream.of(new IngredientIdRange(startingRange.rangeList.getFirst().lower, endingRange.rangeList.getFirst().upper));
-        }
-
-        if (startingRange.rangeList.getFirst().lower <= endingRange.rangeList.getFirst().lower) {
-            if (endingRange.rangeList.getFirst().lower > startingRange.rangeList.getFirst().upper) {
-                return Stream.of(
-                        startingRange,
-                        endingRange
-                );
-            }
-            if (startingRange.rangeList.getFirst().upper >= endingRange.rangeList.getFirst().upper) {
-                return Stream.of(startingRange);
-            }
-        }
-
-        return Stream.of(new IngredientIdRange(startingRange.rangeList.getFirst().lower, endingRange.rangeList.getFirst().upper));
+        var result = allStops.toArray(Long[]::new);
+        return new IngredientIdRange(result);
     }
 
     private record SingleRange(long lower, long upper) {
