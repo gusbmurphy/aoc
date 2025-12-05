@@ -42,6 +42,10 @@ public class IngredientIdRange {
         var startingRange = sorted.getFirst();
         var endingRange = sorted.getLast();
 
+        if (startingRange.lower <= endingRange.lower && startingRange.upper >= endingRange.upper) {
+            return Stream.of(startingRange);
+        }
+
         if (startingRange.upper + 1 == endingRange.lower) {
             return Stream.of(new IngredientIdRange(startingRange.lower, endingRange.upper));
         }

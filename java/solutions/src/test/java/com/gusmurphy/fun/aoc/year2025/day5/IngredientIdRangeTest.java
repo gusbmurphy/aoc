@@ -1,6 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day5;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -56,5 +57,16 @@ class IngredientIdRangeTest {
                         new IngredientIdRange(7, 10)
                 )
         );
+    }
+
+    @Test
+    void whenOneRangeSubsumesTheOtherWeGetJustTheLargerRange() {
+        var a = new IngredientIdRange(1, 8);
+        var b = new IngredientIdRange(3, 5);
+
+        var expected = Stream.of(new IngredientIdRange(1, 8));
+        var actual = a.mergeWith(b);
+
+        Assertions.assertIterableEquals(expected.toList(), actual.toList());
     }
 }
