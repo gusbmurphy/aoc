@@ -21,4 +21,17 @@ class IngredientIdRangeTest {
         Assertions.assertIterableEquals(expected.toList(), actual.toList());
     }
 
+    @Test
+    void twoAdjacentRangesCombineToBeASingleContinuousRange() {
+        var a = new IngredientIdRange(7, 10);
+        var b = new IngredientIdRange(11, 20);
+
+        var expected = Stream.of(
+                new IngredientIdRange(7, 20)
+        );
+        Stream<IngredientIdRange> actual = a.mergeWith(b);
+
+        Assertions.assertIterableEquals(expected.toList(), actual.toList());
+    }
+
 }

@@ -37,6 +37,10 @@ public class IngredientIdRange {
     }
 
     public Stream<IngredientIdRange> mergeWith(IngredientIdRange other) {
+        if (this.upper + 1 == other.lower) {
+            return Stream.of(new IngredientIdRange(this.lower, other.upper));
+        }
+
         return Stream.of(
                 this,
                 other
