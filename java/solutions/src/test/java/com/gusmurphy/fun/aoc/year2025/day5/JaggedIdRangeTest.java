@@ -35,6 +35,11 @@ class JaggedIdRangeTest {
                         new JaggedIdRange(2, 9),
                         new JaggedIdRange(3, 12),
                         new JaggedIdRange(2L, 12L)
+                ),
+                Arguments.of(
+                        new JaggedIdRange(2, 9),
+                        new JaggedIdRange(1, 12),
+                        new JaggedIdRange(1L, 12L)
                 )
         );
     }

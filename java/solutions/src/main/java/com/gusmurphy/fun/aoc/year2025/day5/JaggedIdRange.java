@@ -81,7 +81,8 @@ public class JaggedIdRange {
             var second = sortedRanges.getLast();
 
             if (first.upper >= second.lower) {
-                return Stream.of(new IdRange(first.lower, second.upper));
+                var higherUpper = Long.max(first.upper, second.upper);
+                return Stream.of(new IdRange(first.lower, higherUpper));
             }
 
             return sortedRanges.stream();
