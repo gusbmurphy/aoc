@@ -19,7 +19,7 @@ public class IngredientListParser {
 
     private static class IngredientListAccumulator {
         List<IngredientIdRange> ranges = new ArrayList<>();
-        List<Integer> freshIds = new ArrayList<>();
+        List<Long> freshIds = new ArrayList<>();
     }
 
     private static class IngredientListCollector implements Collector<String, IngredientListAccumulator, IngredientList> {
@@ -49,14 +49,14 @@ public class IngredientListParser {
         private void addRange(IngredientListAccumulator accumulator, String string) {
             var bounds = string.split("-");
             var range = new IngredientIdRange(
-                    Integer.parseInt(bounds[0]),
-                    Integer.parseInt(bounds[1])
+                    Long.parseLong(bounds[0]),
+                    Long.parseLong(bounds[1])
             );
             accumulator.ranges.add(range);
         }
 
         private void addFreshId(IngredientListAccumulator accumulator, String string) {
-            var id = Integer.parseInt(string);
+            var id = Long.parseLong(string);
             accumulator.freshIds.add(id);
         }
 

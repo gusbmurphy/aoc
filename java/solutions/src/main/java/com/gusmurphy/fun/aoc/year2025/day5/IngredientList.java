@@ -5,11 +5,17 @@ import java.util.Objects;
 
 public class IngredientList {
     private final List<IngredientIdRange> idRangeList;
-    private final List<Integer> freshIngredientIdList;
+    private final List<Long> freshIngredientIdList;
 
-    public IngredientList(List<IngredientIdRange> idRangeList, List<Integer> freshIngredientIdList) {
+    public IngredientList(List<IngredientIdRange> idRangeList, List<Long> freshIngredientIdList) {
         this.idRangeList = idRangeList;
         this.freshIngredientIdList = freshIngredientIdList;
+    }
+
+    public long freshIngredientCount() {
+        return freshIngredientIdList.stream()
+                .filter(id -> idRangeList.stream().anyMatch(range -> range.includes(id)))
+                .count();
     }
 
     @Override

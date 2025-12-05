@@ -3,13 +3,13 @@ package com.gusmurphy.fun.aoc.year2025.day5;
 import java.util.Objects;
 
 public class IngredientIdRange {
-    private final int lower;
-    private final int upper;
+    private final long lower;
+    private final long upper;
 
     /**
      * An inclusive range.
      */
-    public IngredientIdRange(int lower, int upper) {
+    public IngredientIdRange(long lower, long upper) {
         this.lower = lower;
         this.upper = upper;
     }
@@ -24,5 +24,9 @@ public class IngredientIdRange {
     @Override
     public int hashCode() {
         return Objects.hash(lower, upper);
+    }
+
+    public boolean includes(long id) {
+        return id >= lower && id <= upper;
     }
 }

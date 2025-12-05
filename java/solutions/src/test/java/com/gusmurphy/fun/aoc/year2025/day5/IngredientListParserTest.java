@@ -18,7 +18,7 @@ public class IngredientListParserTest {
                         new IngredientIdRange(3, 5),
                         new IngredientIdRange(10, 14)
                 ),
-                List.of(1, 5, 8)
+                List.of(1L, 5L, 8L)
         );
 
         Assertions.assertEquals(expected, actual);
