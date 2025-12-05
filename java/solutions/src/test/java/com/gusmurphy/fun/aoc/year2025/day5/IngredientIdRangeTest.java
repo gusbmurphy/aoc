@@ -1,17 +1,17 @@
 package com.gusmurphy.fun.aoc.year2025.day5;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
 class IngredientIdRangeTest {
 
-    @Test
-    void twoNonOverLappingRangesCombinedStayTheSameWhenMerged() {
-        var a = new IngredientIdRange(1, 4);
-        var b = new IngredientIdRange(6, 8);
-
+    @ParameterizedTest
+    @MethodSource
+    void twoNonOverLappingRangesCombinedStayTheSameWhenMerged(IngredientIdRange a, IngredientIdRange b) {
         var expected = Stream.of(
                 new IngredientIdRange(1, 4),
                 new IngredientIdRange(6, 8)
@@ -21,11 +21,22 @@ class IngredientIdRangeTest {
         Assertions.assertIterableEquals(expected.toList(), actual.toList());
     }
 
-    @Test
-    void twoAdjacentRangesCombineToBeASingleContinuousRange() {
-        var a = new IngredientIdRange(7, 10);
-        var b = new IngredientIdRange(11, 20);
+    private static Stream<Arguments> twoNonOverLappingRangesCombinedStayTheSameWhenMerged() {
+        return Stream.of(
+                Arguments.of(
+                        new IngredientIdRange(1, 4),
+                        new IngredientIdRange(6, 8)
+                ),
+                Arguments.of(
+                        new IngredientIdRange(6, 8),
+                        new IngredientIdRange(1, 4)
+                )
+        );
+    }
 
+    @ParameterizedTest
+    @MethodSource
+    void twoAdjacentRangesCombineToBeASingleContinuousRange(IngredientIdRange a, IngredientIdRange b) {
         var expected = Stream.of(
                 new IngredientIdRange(7, 20)
         );
@@ -34,4 +45,16 @@ class IngredientIdRangeTest {
         Assertions.assertIterableEquals(expected.toList(), actual.toList());
     }
 
+    private static Stream<Arguments> twoAdjacentRangesCombineToBeASingleContinuousRange() {
+        return Stream.of(
+                Arguments.of(
+                        new IngredientIdRange(7, 10),
+                        new IngredientIdRange(11, 20)
+                ),
+                Arguments.of(
+                        new IngredientIdRange(11, 20),
+                        new IngredientIdRange(7, 10)
+                )
+        );
+    }
 }

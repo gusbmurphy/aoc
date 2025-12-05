@@ -1,5 +1,6 @@
 package com.gusmurphy.fun.aoc.year2025.day5;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -37,13 +38,17 @@ public class IngredientIdRange {
     }
 
     public Stream<IngredientIdRange> mergeWith(IngredientIdRange other) {
-        if (this.upper + 1 == other.lower) {
-            return Stream.of(new IngredientIdRange(this.lower, other.upper));
+        var sorted = Stream.of(this, other).sorted(Comparator.comparingLong(r -> r.lower)).toList();
+        var startingRange = sorted.getFirst();
+        var endingRange = sorted.getLast();
+
+        if (startingRange.upper + 1 == endingRange.lower) {
+            return Stream.of(new IngredientIdRange(startingRange.lower, endingRange.upper));
         }
 
         return Stream.of(
-                this,
-                other
+                startingRange,
+                endingRange
         );
     }
 }
