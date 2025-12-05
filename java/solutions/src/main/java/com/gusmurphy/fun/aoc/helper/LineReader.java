@@ -10,7 +10,7 @@ public class LineReader {
 
     public static Stream<String> readAllLinesFrom(String absolutePath) {
         try (var reader = new BufferedReader(new java.io.FileReader(absolutePath))) {
-            return reader.readAllLines().stream();
+            return reader.lines().toList().stream();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

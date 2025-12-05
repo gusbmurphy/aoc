@@ -1,6 +1,8 @@
 package com.gusmurphy.fun.aoc.year2025.day2;
 
-import module java.base;
+import java.util.Objects;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 public class ProductIdRange {
     private final long start;

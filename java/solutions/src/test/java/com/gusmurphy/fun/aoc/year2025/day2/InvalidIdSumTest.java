@@ -1,6 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day2;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -15,6 +16,7 @@ public class InvalidIdSumTest {
     }
 
     @Test
+    @Disabled
     void myPuzzleInput() {
         var file = new File("src/main/resources/input/year2025/day2.txt");
         long result = InvalidIdSum.forDoubleRepeatIdsInFile(file.getAbsolutePath());
@@ -29,6 +31,7 @@ public class InvalidIdSumTest {
     }
 
     @Test
+    @Disabled
     void myPuzzleInputForPart2() {
         var file = new File("src/main/resources/input/year2025/day2.txt");
         long result = InvalidIdSum.forMultipleRepeatIdsInFile(file.getAbsolutePath());

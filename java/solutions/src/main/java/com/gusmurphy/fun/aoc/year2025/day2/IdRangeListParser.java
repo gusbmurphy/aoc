@@ -1,7 +1,9 @@
 package com.gusmurphy.fun.aoc.year2025.day2;
 
-import module java.base;
 import com.gusmurphy.fun.aoc.helper.LineReader;
+
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class IdRangeListParser {
     private IdRangeListParser() {

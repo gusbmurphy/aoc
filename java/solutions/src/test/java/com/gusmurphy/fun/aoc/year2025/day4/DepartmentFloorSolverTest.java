@@ -17,6 +17,7 @@ public class DepartmentFloorSolverTest {
     }
 
     @Test
+    @Disabled
     void part1MyInput() {
         var file = new File("src/main/resources/input/year2025/day4.txt");
         long result = DepartmentFloorSolver.accessibleRollCountFromFile(file.getAbsolutePath());

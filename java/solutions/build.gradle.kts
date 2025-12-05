@@ -1,5 +1,6 @@
 plugins {
     java
+    id("info.solidsoft.pitest") version "1.19.0-rc.2"
 }
 
 repositories {
@@ -8,7 +9,7 @@ repositories {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -21,14 +22,9 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-tasks.withType<JavaCompile>().configureEach {
-    options.compilerArgs.add("--enable-preview")
-}
-
-tasks.withType<Test>().configureEach {
-    jvmArgs("--enable-preview")
-}
-
-tasks.withType<JavaExec>().configureEach {
-    jvmArgs("--enable-preview")
+pitest {
+    targetClasses.set(setOf("com.gusmurphy.fun.aoc.*"))
+    verbose.set(true)
+    junit5PluginVersion.set("1.2.3")
+    pitestVersion.set("1.19.4")
 }

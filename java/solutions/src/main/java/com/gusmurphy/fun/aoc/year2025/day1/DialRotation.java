@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 public record DialRotation(Direction direction, int distance) {
     public Stream<DialRotation> steps() {
         return IntStream.range(0, distance)
-                .mapToObj(_ -> new DialRotation(direction, 1));
+                .mapToObj(i -> new DialRotation(direction, 1));
     }
 
     public enum Direction {

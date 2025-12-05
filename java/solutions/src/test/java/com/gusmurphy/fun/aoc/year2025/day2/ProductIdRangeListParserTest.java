@@ -3,7 +3,8 @@ package com.gusmurphy.fun.aoc.year2025.day2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import module java.base;
+import java.io.File;
+import java.util.List;
 
 public class ProductIdRangeListParserTest {
 
