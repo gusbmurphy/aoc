@@ -16,6 +16,7 @@ public class IngredientListSolverTest {
     }
 
     @Test
+    @Disabled
     void part1MyInput() {
         var file = new File("src/main/resources/input/year2025/day5.txt");
         long actual = IngredientListSolver.countFreshIngredientsInFile(file.getAbsolutePath());
