@@ -24,7 +24,6 @@ tasks.named<Test>("test") {
 
 pitest {
     targetClasses.set(setOf("com.gusmurphy.fun.aoc.*"))
-    verbose.set(true)
     junit5PluginVersion.set("1.2.3")
     pitestVersion.set("1.19.4")
 }
