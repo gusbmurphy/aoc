@@ -21,4 +21,11 @@ public class HomeworkSolverTest {
         Assertions.assertEquals(6371789547734L, actual);
     }
 
+    @Test
+    void part2Example() {
+        var file = new File("src/test/resources/year2025/day6/example.txt");
+        long actual = HomeworkSolver.sumOfAllAnswersInFileWithRealCephalopodFormat(file.getAbsolutePath());
+        Assertions.assertEquals(3263827L, actual);
+    }
+
 }

@@ -20,6 +20,12 @@ public class HomeworkSolver {
                 .sum();
     }
 
+    public static long sumOfAllAnswersInFileWithRealCephalopodFormat(String absolutePath) {
+        return CephalopodMathParser.fromFile(absolutePath)
+                .mapToLong(HomeworkProblem::solve)
+                .sum();
+    }
+
     private static class HomeworkAccumulator {
         List<List<Long>> arguments = new ArrayList<>();
         List<Operation> operations;
