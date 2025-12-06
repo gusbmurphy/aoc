@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class CephalopodMathParser {
+public class TrueCephalopodMathParser {
     public static Stream<HomeworkProblem> fromFile(String absolutePath) {
         var allLines = LineReader.readAllLinesFrom(absolutePath).toList();
         var columnBounds = columnBoundsFrom(allLines);

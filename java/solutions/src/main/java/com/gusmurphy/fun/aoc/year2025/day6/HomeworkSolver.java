@@ -21,7 +21,7 @@ public class HomeworkSolver {
     }
 
     public static long sumOfAllAnswersInFileWithRealCephalopodFormat(String absolutePath) {
-        return CephalopodMathParser.fromFile(absolutePath)
+        return TrueCephalopodMathParser.fromFile(absolutePath)
                 .mapToLong(HomeworkProblem::solve)
                 .sum();
     }

@@ -14,7 +14,7 @@ public class TrueCephalopodMathParserTest {
     @Test
     void homeworkIsCorrectlyParsedForTrueCephalopodStyle() {
         var file = new File("src/test/resources/year2025/day6/test-sample.txt");
-        var actual = CephalopodMathParser.fromFile(file.getAbsolutePath());
+        var actual = TrueCephalopodMathParser.fromFile(file.getAbsolutePath());
 
         var expected = List.of(
                 new HomeworkProblem(MULTIPLY, List.of(356L, 24L, 1L)),
@@ -27,7 +27,7 @@ public class TrueCephalopodMathParserTest {
     @Test
     void fileWithWeirderLayoutIsParsedCorrectly() {
         var file = new File("src/test/resources/year2025/day6/weird-sample.txt");
-        var actual = CephalopodMathParser.fromFile(file.getAbsolutePath());
+        var actual = TrueCephalopodMathParser.fromFile(file.getAbsolutePath());
 
         var expected = List.of(
                 new HomeworkProblem(MULTIPLY, List.of(5L, 31L, 7L))
@@ -39,7 +39,7 @@ public class TrueCephalopodMathParserTest {
     @Test
     void fileWithColumnsOfDifferentWidth() {
         var file = new File("src/test/resources/year2025/day6/varying-width-sample.txt");
-        var actual = CephalopodMathParser.fromFile(file.getAbsolutePath());
+        var actual = TrueCephalopodMathParser.fromFile(file.getAbsolutePath());
 
         var expected = List.of(
                 new HomeworkProblem(MULTIPLY, List.of(8L, 356L, 4L, 1L)),
