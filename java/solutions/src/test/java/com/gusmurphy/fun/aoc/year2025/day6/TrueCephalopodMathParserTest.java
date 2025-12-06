@@ -24,4 +24,16 @@ public class TrueCephalopodMathParserTest {
         Assertions.assertEquals(expected, actual.toList());
     }
 
+    @Test
+    void fileWithWeirderLayoutIsParsedCorrectly() {
+        var file = new File("src/test/resources/year2025/day6/weird-sample.txt");
+        var actual = CephalopodMathParser.fromFile(file.getAbsolutePath());
+
+        var expected = List.of(
+                new HomeworkProblem(MULTIPLY, List.of(5L, 31L, 7L))
+        );
+
+        Assertions.assertEquals(expected, actual.toList());
+    }
+
 }
