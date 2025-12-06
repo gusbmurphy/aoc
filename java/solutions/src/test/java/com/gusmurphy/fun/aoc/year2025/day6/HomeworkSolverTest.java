@@ -14,4 +14,11 @@ public class HomeworkSolverTest {
         Assertions.assertEquals(4277556L, actual);
     }
 
+    @Test
+    void part1MyInput() {
+        var file = new File("src/main/resources/input/year2025/day6.txt");
+        long actual = HomeworkSolver.sumOfAllAnswersInFile(file.getAbsolutePath());
+        Assertions.assertEquals(6371789547734L, actual);
+    }
+
 }
