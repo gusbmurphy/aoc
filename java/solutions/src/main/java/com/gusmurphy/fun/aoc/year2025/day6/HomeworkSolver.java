@@ -20,23 +20,6 @@ public class HomeworkSolver {
                 .sum();
     }
 
-    private enum Operation {
-        ADD, MULTIPLY
-    }
-
-    private record HomeworkProblem(Operation operation, List<Long> arguments) {
-        long solve() {
-            var argStream = arguments.stream()
-                    .mapToLong(Long::valueOf);
-
-            if (operation == Operation.ADD) {
-                return argStream.reduce(0, Long::sum);
-            }
-
-            return argStream.reduce(1, (a, b) -> a * b);
-        }
-    }
-
     private static class HomeworkAccumulator {
         List<List<Long>> arguments = new ArrayList<>();
         List<Operation> operations;
