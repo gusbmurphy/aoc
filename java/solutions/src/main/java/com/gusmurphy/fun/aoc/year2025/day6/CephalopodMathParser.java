@@ -16,59 +16,93 @@ import java.util.stream.Stream;
 
 public class CephalopodMathParser {
     public static Stream<HomeworkProblem> fromFile(String absolutePath) {
-        return LineReader.readAllLinesFrom(absolutePath)
-                .collect(new HomeworkCollector());
+        var allLines = LineReader.readAllLinesFrom(absolutePath).toList();
+        var columnBounds = columnBoundsFrom(allLines);
+
+        return allLines.stream().collect(new HomeworkCollector(columnBounds));
     }
 
-    private static class ThreeSectionColumn {
-        List<Character> a, b, c;
+    private static List<ColumnBounds> columnBoundsFrom(List<String> allLinesInFile) {
+        int lineLength = allLinesInFile.getFirst().length();
+        var allColumnStarts = IntStream.range(0, lineLength)
+                .filter(i -> allLinesInFile.stream().allMatch(line -> line.charAt(i) == ' '))
+                .map(i -> i + 1)
+                .boxed().toList();
+        
+        var allColumnSeparators = new ArrayList<>(allColumnStarts);
+        allColumnSeparators.addFirst(0);
+        allColumnSeparators.addLast(lineLength + 1);
 
-        ThreeSectionColumn() {
-            a = new ArrayList<>();
-            b = new ArrayList<>();
-            c = new ArrayList<>();
+        return IntStream.range(1, allColumnSeparators.size())
+                .boxed()
+                .map(i -> new ColumnBounds(allColumnSeparators.get(i - 1), allColumnSeparators.get(i) - 1))
+                .toList();
+    }
+
+    private static class ColumnGroup {
+        List<ArrayList<Character>> columnList;
+
+        ColumnGroup(int width) {
+            columnList = Stream.generate(() -> new ArrayList<Character>()).limit(width).toList();
         }
 
-        void addNextThree(Character x, Character y, Character z) {
-            a.add(x);
-            b.add(y);
-            c.add(z);
+        void addRow(List<Character> characters) {
+            if (characters.size() != columnList.size()) {
+                throw new IllegalArgumentException("Cannot add row of different size");
+            }
+
+            IntStream.range(0, columnList.size())
+                    .forEach(i -> columnList.get(i).add(characters.get(i)));
         }
     }
 
-    private static class HomeworkCollector implements Collector<String, List<ThreeSectionColumn>, Stream<HomeworkProblem>> {
+    private record ColumnBounds(int start, int end) {
+        ColumnBounds {
+            if (start >= end) {
+                throw new IllegalArgumentException("Start must be less than end");
+            }
+        }
+
+        int size() {
+            return end - start;
+        }
+    }
+
+    private static class HomeworkCollector implements Collector<String, List<ColumnGroup>, Stream<HomeworkProblem>> {
+        private final List<ColumnBounds> columnBounds;
+
+        HomeworkCollector(List<ColumnBounds> columnBounds) {
+            this.columnBounds = columnBounds;
+        }
+
         @Override
-        public Supplier<List<ThreeSectionColumn>> supplier() {
+        public Supplier<List<ColumnGroup>> supplier() {
             return ArrayList::new;
         }
 
         @Override
-        public BiConsumer<List<ThreeSectionColumn>, String> accumulator() {
+        public BiConsumer<List<ColumnGroup>, String> accumulator() {
             return (columns, string) ->
-                    IntStream.iterate(0, i -> i < string.length(), i -> i + 4)
-                            .forEach(columnStart -> {
-                                int columnIndex = columnStart / 4;
-                                if (columnIndex + 1 > columns.size()) {
-                                    columns.add(new ThreeSectionColumn());
+                    IntStream.range(0, columnBounds.size())
+                            .forEach(i -> {
+                                var bounds = columnBounds.get(i);
+                                if (i + 1 > columns.size()) {
+                                    columns.add(new ColumnGroup(bounds.size()));
                                 }
-                                var charsInRow = IntStream.rangeClosed(columnStart, columnStart + 2)
-                                        .mapToObj(i -> i < string.length() ? string.charAt(i) : ' ')
+                                var charsInRow = IntStream.range(bounds.start, bounds.end)
+                                        .mapToObj(j -> j < string.length() ? string.charAt(j) : ' ')
                                         .toList();
-                                columns.get(columnIndex).addNextThree(
-                                        charsInRow.get(0),
-                                        charsInRow.get(1),
-                                        charsInRow.get(2)
-                                );
+                                columns.get(i).addRow(charsInRow);
                             });
         }
 
         @Override
-        public BinaryOperator<List<ThreeSectionColumn>> combiner() {
+        public BinaryOperator<List<ColumnGroup>> combiner() {
             return null;
         }
 
         @Override
-        public Function<List<ThreeSectionColumn>, Stream<HomeworkProblem>> finisher() {
+        public Function<List<ColumnGroup>, Stream<HomeworkProblem>> finisher() {
             return columns -> columns.stream()
                     .map(HomeworkCollector::fromColumn);
         }
@@ -78,17 +112,16 @@ public class CephalopodMathParser {
             return Set.of();
         }
 
-        private static HomeworkProblem fromColumn(ThreeSectionColumn column) {
-            var arguments = Stream.of(column.c, column.b, column.a)
+        private static HomeworkProblem fromColumn(ColumnGroup column) {
+            var arguments = column.columnList.reversed().stream()
                     .map(characters -> characters.stream()
-                            .limit(column.a.size() - 1) // The last part of the column will be the operation...
-                            .filter(c -> !c.equals(' '))
+                            .filter(Character::isDigit)
                             .map(String::valueOf)
                             .collect(Collectors.joining()))
                     .map(Long::valueOf)
                     .toList();
 
-            var operation = column.a.getLast().equals('*') ? Operation.MULTIPLY : Operation.ADD;
+            var operation = column.columnList.getFirst().getLast().equals('*') ? Operation.MULTIPLY : Operation.ADD;
             return new HomeworkProblem(operation, arguments);
         }
     }

@@ -36,4 +36,17 @@ public class TrueCephalopodMathParserTest {
         Assertions.assertEquals(expected, actual.toList());
     }
 
+    @Test
+    void fileWithColumnsOfDifferentWidth() {
+        var file = new File("src/test/resources/year2025/day6/varying-width-sample.txt");
+        var actual = CephalopodMathParser.fromFile(file.getAbsolutePath());
+
+        var expected = List.of(
+                new HomeworkProblem(MULTIPLY, List.of(8L, 356L, 4L, 1L)),
+                new HomeworkProblem(ADD, List.of(28L, 369L))
+        );
+
+        Assertions.assertEquals(expected, actual.toList());
+    }
+
 }
