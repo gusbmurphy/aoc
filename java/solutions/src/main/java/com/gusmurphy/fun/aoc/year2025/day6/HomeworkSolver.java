@@ -16,7 +16,6 @@ public class HomeworkSolver {
         return LineReader.readAllLinesFrom(absolutePath)
                 .collect(new HomeworkCollector())
                 .map(HomeworkProblem::solve)
-                .peek(System.out::println)
                 .mapToLong(Long::valueOf)
                 .sum();
     }
