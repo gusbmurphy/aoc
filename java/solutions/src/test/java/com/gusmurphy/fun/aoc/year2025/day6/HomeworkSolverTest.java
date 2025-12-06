@@ -1,6 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day6;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -26,6 +27,14 @@ public class HomeworkSolverTest {
         var file = new File("src/test/resources/year2025/day6/example.txt");
         long actual = HomeworkSolver.sumOfAllAnswersInFileWithRealCephalopodFormat(file.getAbsolutePath());
         Assertions.assertEquals(3263827L, actual);
+    }
+
+    @Test
+    @Disabled("To be solved...")
+    void part2MyInput() {
+        var file = new File("src/main/resources/input/year2025/day6.txt");
+        long actual = HomeworkSolver.sumOfAllAnswersInFileWithRealCephalopodFormat(file.getAbsolutePath());
+        Assertions.assertEquals(0, actual);
     }
 
 }
