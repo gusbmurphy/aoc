@@ -9,8 +9,9 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class FileGrid implements Grid<Character> {
-    private List<String> rowStrings;
-    private int width;
+    private final List<String> rowStrings;
+    private final int width;
+    private final int height;
 
     FileGrid(String path) {
         var file = new File(path);
@@ -20,6 +21,7 @@ class FileGrid implements Grid<Character> {
                 .peek(s -> longestLength.set(Integer.max(longestLength.get(), s.length())))
                 .toList();
         width = longestLength.get();
+        height = rowStrings.size();
     }
 
     @Override
@@ -33,6 +35,11 @@ class FileGrid implements Grid<Character> {
     public Stream<Line<Character>> columns() {
         return IntStream.range(0, width)
                 .mapToObj(this::columnAt);
+    }
+
+    @Override
+    public boolean containsPosition(GridPosition position) {
+        return position.x() < width && position.y() < height;
     }
 
     private Line<Character> columnAt(int index) {

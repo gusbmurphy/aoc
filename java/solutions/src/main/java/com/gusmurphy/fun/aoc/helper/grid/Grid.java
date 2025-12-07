@@ -9,4 +9,5 @@ public interface Grid<T> {
 
     Stream<Line<T>> rows();
     Stream<Line<T>> columns();
+    boolean containsPosition(GridPosition position);
 }
