@@ -7,5 +7,6 @@ public interface Grid<T> {
         return new FileGrid(path);
     }
 
-    Stream<Row<T>> rows();
+    Stream<Line<T>> rows();
+    Stream<Line<T>> columns();
 }

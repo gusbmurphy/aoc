@@ -5,6 +5,7 @@ import com.gusmurphy.fun.aoc.helper.LineReader;
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class FileGrid implements Grid<Character> {
@@ -22,12 +23,22 @@ class FileGrid implements Grid<Character> {
     }
 
     @Override
-    public Stream<Row<Character>> rows() {
+    public Stream<Line<Character>> rows() {
         return rowStrings.stream()
                 .map(this::padString)
-                .map(Row::of);
+                .map(Line::of);
     }
-    
+
+    @Override
+    public Stream<Line<Character>> columns() {
+        return IntStream.range(0, width)
+                .mapToObj(this::columnAt);
+    }
+
+    private Line<Character> columnAt(int index) {
+        return new Line<>(rows().map(r -> r.get(index).orElseThrow()).toList());
+    }
+
     private String padString(String s) {
         var sb = new StringBuilder(s);
         while (sb.length() < width) {
