@@ -11,6 +11,12 @@ public class BeamSplitterSolverTest {
         Assertions.assertEquals(0, actual);
     }
     
+    @Test
+    void singleSplit() {
+        var actual = BeamSplitterSolver.countSplitsIn(pathToExample("single-split"));
+        Assertions.assertEquals(1, actual);
+    }
+    
     private static String pathToExample(String exampleName) {
         return String.format("src/test/resources/year2025/day7/%s.txt", exampleName);
     }

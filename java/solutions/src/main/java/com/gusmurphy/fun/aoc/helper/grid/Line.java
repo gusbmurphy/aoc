@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Line<T> {
     private final List<T> elements;
@@ -18,6 +19,10 @@ public class Line<T> {
     
     public Optional<T> get(int i) {
         return Optional.ofNullable(elements.get(i));
+    }
+    
+    public Stream<T> elements() {
+        return elements.stream();
     }
 
     @Override
