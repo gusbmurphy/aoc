@@ -16,9 +16,9 @@ public class GridTest {
         var grid = Grid.fromFile("src/test/resources/helper/simple-square.txt");
         
         var expectedRows = List.of(
-                Line.of("abc"),
-                Line.of("123"),
-                Line.of("DEF")
+                StringLine.of("abc"),
+                StringLine.of("123"),
+                StringLine.of("DEF")
         );
 
         Assertions.assertIterableEquals(expectedRows, grid.rows().toList());
@@ -29,9 +29,9 @@ public class GridTest {
         var grid = Grid.fromFile("src/test/resources/helper/uneven-grid.txt");
 
         var expectedRows = List.of(
-                Line.of("abc  "),
-                Line.of("    d"),
-                Line.of("...1 ")
+                StringLine.of("abc  "),
+                StringLine.of("    d"),
+                StringLine.of("...1 ")
         );
 
         Assertions.assertIterableEquals(expectedRows, grid.rows().toList());
@@ -42,9 +42,9 @@ public class GridTest {
         var grid = Grid.fromFile("src/test/resources/helper/simple-square.txt");
 
         var expectedColumns = List.of(
-                Line.of("a1D"),
-                Line.of("b2E"),
-                Line.of("c3F")
+                StringLine.of("a1D"),
+                StringLine.of("b2E"),
+                StringLine.of("c3F")
         );
 
         Assertions.assertIterableEquals(expectedColumns, grid.columns().toList());
