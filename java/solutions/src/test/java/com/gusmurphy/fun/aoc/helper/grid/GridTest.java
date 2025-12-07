@@ -20,4 +20,17 @@ public class GridTest {
         Assertions.assertIterableEquals(expectedRows, grid.rows().toList());
     }
     
+    @Test
+    void unevenGrid() {
+        var grid = Grid.fromFile("src/test/resources/helper/uneven-grid.txt");
+
+        var expectedRows = List.of(
+                Row.of("abc  "),
+                Row.of("    d"),
+                Row.of("...1 ")
+        );
+
+        Assertions.assertIterableEquals(expectedRows, grid.rows().toList());
+    }
+    
 }

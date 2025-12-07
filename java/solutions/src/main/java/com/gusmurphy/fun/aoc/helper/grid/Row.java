@@ -2,6 +2,7 @@ package com.gusmurphy.fun.aoc.helper.grid;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Row<T> {
     private final List<T> elements;
@@ -12,6 +13,11 @@ public class Row<T> {
     
     public static Row<Character> of(String s) {
         return new Row<>(s.chars().mapToObj(c -> (char) c).toList());
+    }
+
+    @Override
+    public String toString() {
+        return elements.stream().map(String::valueOf).collect(Collectors.joining(","));
     }
 
     @Override
