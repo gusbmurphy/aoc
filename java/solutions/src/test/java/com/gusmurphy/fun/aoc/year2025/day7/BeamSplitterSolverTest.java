@@ -29,6 +29,12 @@ public class BeamSplitterSolverTest {
         Assertions.assertEquals(21, actual);
     }
     
+    @Test
+    void part1MyInput() {
+        var actual = BeamSplitterSolver.countSplitsIn("src/main/resources/input/year2025/day7.txt");
+        Assertions.assertEquals(1690, actual);
+    }
+    
     private static String pathToExample(String exampleName) {
         return String.format("src/test/resources/year2025/day7/%s.txt", exampleName);
     }
