@@ -23,6 +23,12 @@ public class BeamSplitterSolverTest {
         Assertions.assertEquals(1, actual);
     }
     
+    @Test
+    void part1Example() {
+        var actual = BeamSplitterSolver.countSplitsIn(pathToExample("example"));
+        Assertions.assertEquals(21, actual);
+    }
+    
     private static String pathToExample(String exampleName) {
         return String.format("src/test/resources/year2025/day7/%s.txt", exampleName);
     }

@@ -10,6 +10,6 @@ public interface Grid<T> {
     Stream<Line<T>> rows();
     Stream<Line<T>> columns();
     boolean containsPosition(GridPosition position);
-    Stream<GridPosition> positionsOf(T splitter);
+    Stream<GridPosition> positionsOf(T t);
     Line<T> lineFromPositionHeading(GridPosition position, GridDirection direction);
 }
