@@ -76,12 +76,11 @@ public class BeamSplitterSolver {
             AtomicInteger newSplitCount = new AtomicInteger(0);
             var newBeamPositions = currentBeamHeads.stream()
                     .flatMap(beamHead -> {
-                        var positionToTheSouth = beamHead.toThe(S);
-                        if (splitterPositions.contains(positionToTheSouth)) {
+                        var nextPositions = nextPositionsFrom(beamHead, splitterPositions).toList();
+                        if (nextPositions.size() > 1) {
                             newSplitCount.incrementAndGet();
-                            return Stream.of(positionToTheSouth.toThe(W), positionToTheSouth.toThe(E));
                         }
-                        return Stream.of(positionToTheSouth);
+                        return nextPositions.stream();
                     })
                     .distinct()
                     .toList();
