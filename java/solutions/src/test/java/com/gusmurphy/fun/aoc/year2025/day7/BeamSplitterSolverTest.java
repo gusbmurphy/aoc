@@ -1,6 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day7;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class BeamSplitterSolverTest {
@@ -45,6 +46,13 @@ public class BeamSplitterSolverTest {
     void part2Example() {
         var actual = BeamSplitterSolver.countPathsIn(pathToExample("example"));
         Assertions.assertEquals(40, actual);
+    }
+    
+    @Test
+    @Disabled
+    void part2MyInput() {
+        var actual = BeamSplitterSolver.countPathsIn("src/main/resources/input/year2025/day7.txt");
+        Assertions.assertEquals(0, actual);
     }
     
     private static String pathToExample(String exampleName) {
