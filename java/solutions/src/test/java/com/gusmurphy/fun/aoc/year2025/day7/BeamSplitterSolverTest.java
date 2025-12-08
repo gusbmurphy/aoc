@@ -35,6 +35,18 @@ public class BeamSplitterSolverTest {
         Assertions.assertEquals(1690, actual);
     }
     
+    @Test
+    void part2MiniExample() {
+        var actual = BeamSplitterSolver.countPathsIn(pathToExample("mini-example"));
+        Assertions.assertEquals(8, actual);
+    }
+    
+    @Test
+    void part2Example() {
+        var actual = BeamSplitterSolver.countPathsIn(pathToExample("example"));
+        Assertions.assertEquals(40, actual);
+    }
+    
     private static String pathToExample(String exampleName) {
         return String.format("src/test/resources/year2025/day7/%s.txt", exampleName);
     }
