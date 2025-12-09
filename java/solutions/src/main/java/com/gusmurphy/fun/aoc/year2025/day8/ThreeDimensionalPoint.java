@@ -1,7 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day8;
 
-public record ThreeDimensionalCoordinates(int x, int y, int z) {
-    public double distanceTo(ThreeDimensionalCoordinates other) {
+public record ThreeDimensionalPoint(int x, int y, int z) {
+    public double distanceTo(ThreeDimensionalPoint other) {
         return Math.sqrt(
                 Math.pow((x - other.x), 2) +
                 Math.pow((y - other.y), 2) +
