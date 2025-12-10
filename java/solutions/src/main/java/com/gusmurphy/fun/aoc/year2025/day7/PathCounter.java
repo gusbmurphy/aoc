@@ -10,7 +10,7 @@ import static com.gusmurphy.fun.aoc.helper.grid.GridDirection.*;
 import static com.gusmurphy.fun.aoc.year2025.day7.BeamConstants.*;
 
 class PathCounter {
-    private final HashMap<GridPosition, Integer> memo = new HashMap<>();
+    private final HashMap<GridPosition, Long> memo = new HashMap<>();
     private final Grid<?> grid;
     private final List<GridPosition> splitters;
     private final GridPosition start;
@@ -21,15 +21,15 @@ class PathCounter {
         splitters = grid.positionsOf(SPLITTER).toList();
     }
 
-    int countPaths() {
+    long countPaths() {
         return memoizedCountFrom(start);
     }
 
-    private int memoizedCountFrom(GridPosition p) {
+    private long memoizedCountFrom(GridPosition p) {
         if (memo.containsKey(p)) {
             return memo.get(p);
         }
-        int result;
+        long result;
 
         if (!grid.containsPosition(p)) {
             result = 1;

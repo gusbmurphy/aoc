@@ -49,10 +49,9 @@ public class BeamSplitterSolverTest {
     }
     
     @Test
-    @Disabled
     void part2MyInput() {
         var actual = BeamSplitterSolver.countPathsIn("src/main/resources/input/year2025/day7.txt");
-        Assertions.assertEquals(0, actual);
+        Assertions.assertEquals(221371496188107L, actual);
     }
     
     private static String pathToExample(String exampleName) {

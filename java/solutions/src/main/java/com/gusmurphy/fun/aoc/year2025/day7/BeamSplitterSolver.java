@@ -25,7 +25,7 @@ public class BeamSplitterSolver {
                 .sum();
     }
 
-    public static int countPathsIn(String fileName) {
+    public static long countPathsIn(String fileName) {
         var grid = Grid.fromFile(fileName);
         return new PathCounter(grid).countPaths();
     }
