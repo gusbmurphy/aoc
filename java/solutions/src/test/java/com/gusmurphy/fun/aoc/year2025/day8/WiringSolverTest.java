@@ -9,14 +9,14 @@ public class WiringSolverTest {
     
     @Test
     void part1Example() {
-        int actual = WiringSolver.productOfThreeLargestCircuits(ResourcePath.toTestResource(8, "example"), 10);
+        long actual = WiringSolver.productOfThreeLargestCircuits(ResourcePath.toTestResource(8, "example"), 10);
         Assertions.assertEquals(40, actual);
     }
     
     @Test
     @Disabled
     void part1MyInput() {
-        int actual = WiringSolver.productOfThreeLargestCircuits(ResourcePath.toRealInput(8), 1000);
+        long actual = WiringSolver.productOfThreeLargestCircuits(ResourcePath.toRealInput(8), 1000);
         Assertions.assertEquals(0, actual);
     }
 }

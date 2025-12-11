@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class WiringSolver {
-    public static int productOfThreeLargestCircuits(String path, int maxNumberOfConnections) {
+    public static long productOfThreeLargestCircuits(String path, int maxNumberOfConnections) {
         var points = ThreeDimensionalPointListParser.parseFile(path).toList();
         List<Circuit> circuits = new ArrayList<>();
         points.stream()
@@ -36,9 +36,9 @@ public class WiringSolver {
         
         return circuits.stream()
                 .map(Circuit::pointCount)
-                .sorted((a, b) -> Integer.compare(b, a))
+                .sorted((a, b) -> Long.compare(b, a))
                 .limit(3)
-                .reduce(1, (a, b) -> a * b);
+                .reduce(1L, (a, b) -> a * b);
     }
     
     private static class PointPair {
@@ -83,7 +83,7 @@ public class WiringSolver {
             points.add(point);
         }
         
-        int pointCount() {
+        long pointCount() {
             return points.size();
         }
     }
