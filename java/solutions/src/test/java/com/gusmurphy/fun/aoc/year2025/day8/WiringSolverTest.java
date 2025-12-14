@@ -23,4 +23,10 @@ public class WiringSolverTest {
         long actual = WiringSolver.partTwoImNotWritingTheWholeThingOutIllJustWriteThisOutInstead(ResourcePath.toTestResource(8, "example"));
         Assertions.assertEquals(25272, actual);
     }
+
+    @Test
+    void part2MyInput() {
+        long actual = WiringSolver.partTwoImNotWritingTheWholeThingOutIllJustWriteThisOutInstead(ResourcePath.toRealInput(8));
+        Assertions.assertEquals(8079278220L, actual);
+    }
 }

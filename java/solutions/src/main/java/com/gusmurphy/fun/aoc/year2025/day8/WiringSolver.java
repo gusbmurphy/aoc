@@ -24,13 +24,13 @@ public class WiringSolver {
                 .reduce(1L, (a, b) -> a * b);
     }
 
-    public static int partTwoImNotWritingTheWholeThingOutIllJustWriteThisOutInstead(String path) {
+    public static long partTwoImNotWritingTheWholeThingOutIllJustWriteThisOutInstead(String path) {
         var points = ThreeDimensionalPointListParser.parseFile(path).toList();
         var circuitCollection = new CircuitCollection(points);
         List<PointPair> connectionsInFullCircuit = circuitCollection.connectionsInOrderForCompleteCircuit();
         var finalConnection = connectionsInFullCircuit.stream()
                 .skip(connectionsInFullCircuit.size() - 1)
                 .findFirst().orElseThrow();
-        return finalConnection.a().x() * finalConnection.b().x();
+        return (long) finalConnection.a().x() * (long) finalConnection.b().x();
     }
 }
