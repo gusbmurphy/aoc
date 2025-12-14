@@ -15,9 +15,18 @@ class CircuitCollection {
     }
 
     void createConnectionFor(PointPair pair) {
-        var child = pair.b();
         var parent = parentsByChildren.get(pair.a());
+        var child = pair.b();
+
+        parentAllDescendantsOfChildTo(child, parent);
         parentsByChildren.put(child, parent);
+    }
+
+    private void parentAllDescendantsOfChildTo(ThreeDimensionalPoint child, ThreeDimensionalPoint newParent) {
+        parentsByChildren.entrySet().stream()
+                .filter(e -> e.getValue() == child)
+                .map(Map.Entry::getKey)
+                .forEach(descendant -> parentsByChildren.put(descendant, newParent));
     }
 
     Stream<Set<ThreeDimensionalPoint>> circuitsBySizeDescending() {

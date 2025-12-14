@@ -12,7 +12,7 @@ class CircuitCollectionTest {
     private static final ThreeDimensionalPoint A = new ThreeDimensionalPoint(1, 2, 3);
     private static final ThreeDimensionalPoint B = new ThreeDimensionalPoint(2, 2, 3);
     private static final ThreeDimensionalPoint C = new ThreeDimensionalPoint(3, 2, 3);
-    
+
     private final CircuitCollection circuits = new CircuitCollection(List.of(A, B, C));
 
     @Test
@@ -25,11 +25,11 @@ class CircuitCollectionTest {
         var actual = circuits.circuitsBySizeDescending().toList();
         assertIterableEquals(expected, actual);
     }
-    
+
     @Test
     void creatingConnectionForAPairBringsThemToTheSameSet() {
         circuits.createConnectionFor(new PointPair(A, B));
-        
+
         var expected = List.of(
                 Set.of(A, B),
                 Set.of(C)
@@ -37,7 +37,7 @@ class CircuitCollectionTest {
         var actual = circuits.circuitsBySizeDescending().toList();
         assertIterableEquals(expected, actual);
     }
-    
+
     @Test
     void creatingConnectionForAPairWithACircuitedPointAddsToThatCircuit() {
         circuits.createConnectionFor(new PointPair(A, B));
@@ -47,6 +47,22 @@ class CircuitCollectionTest {
                 Set.of(A, B, C)
         );
         var actual = circuits.circuitsBySizeDescending().toList();
+        assertIterableEquals(expected, actual);
+    }
+
+    @Test
+    void creatingConnectionForAPairAlreadyInTwoCircuitsCreatesOneCircuit() {
+        var d = new ThreeDimensionalPoint(4, 2, 3);
+        var fourPointCircuit = new CircuitCollection(List.of(A, B, C, d));
+
+        fourPointCircuit.createConnectionFor(new PointPair(A, B));
+        fourPointCircuit.createConnectionFor(new PointPair(C, d));
+        fourPointCircuit.createConnectionFor(new PointPair(B, C));
+
+        var expected = List.of(
+                Set.of(A, B, C, d)
+        );
+        var actual = fourPointCircuit.circuitsBySizeDescending().toList();
         assertIterableEquals(expected, actual);
     }
 
