@@ -15,16 +15,15 @@ class CircuitCollection {
     }
 
     void createConnectionFor(PointPair pair) {
-        var parent = parentsByChildren.get(pair.a());
-        var child = pair.b();
+        var newParent = parentsByChildren.get(pair.a());
+        var oldParent = parentsByChildren.get(pair.b());
 
-        parentAllDescendantsOfChildTo(child, parent);
-        parentsByChildren.put(child, parent);
+        reparentWithDescendants(oldParent, newParent);
     }
 
-    private void parentAllDescendantsOfChildTo(ThreeDimensionalPoint child, ThreeDimensionalPoint newParent) {
+    private void reparentWithDescendants(ThreeDimensionalPoint oldParent, ThreeDimensionalPoint newParent) {
         parentsByChildren.entrySet().stream()
-                .filter(e -> e.getValue() == child)
+                .filter(e -> e.getValue() == oldParent)
                 .map(Map.Entry::getKey)
                 .forEach(descendant -> parentsByChildren.put(descendant, newParent));
     }

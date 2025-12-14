@@ -66,4 +66,20 @@ class CircuitCollectionTest {
         assertIterableEquals(expected, actual);
     }
 
+    @Test
+    void creatingConnectionForAPairAlreadyInTwoCircuitsCreatesOneCircuitForNewPairAtEitherEnd() {
+        var d = new ThreeDimensionalPoint(4, 2, 3);
+        var fourPointCircuit = new CircuitCollection(List.of(A, B, C, d));
+
+        fourPointCircuit.createConnectionFor(new PointPair(A, B));
+        fourPointCircuit.createConnectionFor(new PointPair(C, d));
+        fourPointCircuit.createConnectionFor(new PointPair(A, d));
+
+        var expected = List.of(
+                Set.of(A, B, C, d)
+        );
+        var actual = fourPointCircuit.circuitsBySizeDescending().toList();
+        assertIterableEquals(expected, actual);
+    }
+
 }
