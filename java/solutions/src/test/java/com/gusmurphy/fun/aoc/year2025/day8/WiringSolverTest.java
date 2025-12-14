@@ -17,4 +17,10 @@ public class WiringSolverTest {
         long actual = WiringSolver.productOfThreeLargestCircuits(ResourcePath.toRealInput(8), 1000);
         Assertions.assertEquals(42315, actual);
     }
+    
+    @Test
+    void part2Example() {
+        long actual = WiringSolver.partTwoImNotWritingTheWholeThingOutIllJustWriteThisOutInstead(ResourcePath.toTestResource(8, "example"));
+        Assertions.assertEquals(25272, actual);
+    }
 }
