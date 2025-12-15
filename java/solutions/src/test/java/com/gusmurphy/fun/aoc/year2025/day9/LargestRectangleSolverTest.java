@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class LargestRectangleSolverTest {
-    
+
     @Test
     void part1Example() {
         long actual = LargestRectangleSolver.largestRectangleAreaInFile(
@@ -13,5 +13,12 @@ public class LargestRectangleSolverTest {
 
         Assertions.assertEquals(50, actual);
     }
-    
+
+    @Test
+    void part1MyInput() {
+        long actual = LargestRectangleSolver.largestRectangleAreaInFile(
+                ResourcePath.toRealInput(9));
+
+        Assertions.assertEquals(4773451098L, actual);
+    }
 }
