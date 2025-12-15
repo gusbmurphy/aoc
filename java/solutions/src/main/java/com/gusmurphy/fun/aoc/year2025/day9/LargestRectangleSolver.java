@@ -24,4 +24,8 @@ public class LargestRectangleSolver {
         var digits = Stream.of(s.split(",")).map(Integer::valueOf).toList();
         return new GridPosition(digits.getFirst(), digits.getLast());
     }
+
+    public static long largestRectangleAreaWithinTilePerimeterInFile(String path) {
+        return 0;
+    }
 }
