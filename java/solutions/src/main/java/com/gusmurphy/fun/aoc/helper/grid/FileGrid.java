@@ -3,39 +3,48 @@ package com.gusmurphy.fun.aoc.helper.grid;
 import com.gusmurphy.fun.aoc.helper.LineReader;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static com.gusmurphy.fun.aoc.helper.grid.GridDirection.*;
 
-class FileGrid implements Grid<Character> {
-    private final List<String> rowStrings;
+class FileGrid<E> implements Grid<E> {
+    private final List<List<E>> listRows;
     private final int width;
     private final int height;
+    private final E emptyValue;
 
-    FileGrid(String path) {
+    FileGrid(String path, Function<Character, E> characterConverter, E emptyValue) {
+        this.emptyValue = emptyValue;
+
         var file = new File(path);
         AtomicInteger longestLength = new AtomicInteger();
-        rowStrings = LineReader
+        var rowsBeforePadding = LineReader
                 .readAllLinesFrom(file.getAbsolutePath())
                 .peek(s -> longestLength.set(Integer.max(longestLength.get(), s.length())))
+                .map(s -> convertStringToListOfElements(characterConverter, s))
                 .toList();
         width = longestLength.get();
-        height = rowStrings.size();
+        listRows = rowsBeforePadding.stream().map(this::padListWithEmptyValue).toList();
+        height = listRows.size();
+    }
+
+    private static <E> List<E> convertStringToListOfElements(Function<Character, E> characterConverter, String s) {
+        return s.chars().mapToObj(i -> characterConverter.apply((char) i)).toList();
     }
 
     @Override
-    public Stream<Line<Character>> rows() {
-        return rowStrings.stream()
-                .map(this::padString)
-                .map(StringLine::of);
+    public Stream<Line<E>> rows() {
+        return listRows.stream().map(r -> new StreamLine<>(r::stream));
     }
 
     @Override
-    public Stream<Line<Character>> columns() {
+    public Stream<Line<E>> columns() {
         return IntStream.range(0, width)
                 .mapToObj(this::columnAt);
     }
@@ -52,39 +61,51 @@ class FileGrid implements Grid<Character> {
     }
 
     @Override
-    public Line<Character> lineFromPositionHeading(GridPosition position, GridDirection direction) {
+    public Line<E> lineFromPositionHeading(GridPosition position, GridDirection direction) {
         if (directionIsDiagonal(direction)) {
             throw new IllegalArgumentException("No implementation for diagonal headings");
         }
 
-        Supplier<Stream<Character>> streamSupplier = () -> Stream.iterate(
-                        position, this::containsPosition, p -> p.toThe(direction)).map(this::charAt);
+        Supplier<Stream<E>> streamSupplier = () -> Stream.iterate(
+                position, this::containsPosition, p -> p.toThe(direction)).map(this::elementAt);
 
         return new StreamLine<>(streamSupplier);
     }
 
     @Override
-    public Stream<GridPosition> positionsOf(Character character) {
+    public Stream<GridPosition> positionsOf(E character) {
         return IntStream.range(0, width)
                 .boxed()
                 .flatMap(x -> IntStream.range(0, height)
                         .mapToObj(y -> new GridPosition(x, y))
-                        .filter(pos -> charAt(pos).equals(character)));
+                        .filter(pos -> elementAt(pos).equals(character)));
     }
 
-    private Character charAt(GridPosition pos) {
-        return rowStrings.get(pos.y()).charAt(pos.x());
+    private E elementAt(GridPosition pos) {
+        return listRows.get(pos.y()).get(pos.x());
     }
 
-    private Line<Character> columnAt(int index) {
-        return new StringLine(rows().map(r -> r.get(index).orElseThrow()).toList());
+    private Line<E> columnAt(int index) {
+        return new StreamLine<>(() -> yIndexes().mapToObj(y -> listRows.get(y).get(index)));
     }
 
-    private String padString(String s) {
-        var sb = new StringBuilder(s);
-        while (sb.length() < width) {
-            sb.append(" ");
+    private IntStream xIndexes() {
+        return IntStream.range(0, width);
+    }
+
+    private IntStream yIndexes() {
+        return IntStream.range(0, height);
+    }
+
+    private List<E> padListWithEmptyValue(List<E> list) {
+        if (list.size() == width) {
+            return list;
         }
-        return sb.toString();
+
+        var paddedList = new ArrayList<>(list);
+        while (paddedList.size() < width) {
+            paddedList.add(emptyValue);
+        }
+        return paddedList;
     }
 }

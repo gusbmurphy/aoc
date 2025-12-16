@@ -10,46 +10,49 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class GridTest {
-    
+
     @Test
     void simpleSquareGrid() {
         var grid = Grid.fromFile("src/test/resources/helper/simple-square.txt");
-        
-        var expectedRows = List.of(
-                StringLine.of("abc"),
-                StringLine.of("123"),
-                StringLine.of("DEF")
-        );
 
-        Assertions.assertIterableEquals(expectedRows, grid.rows().toList());
+        var expectedRows = List.of(
+                List.of('a', 'b', 'c'),
+                List.of('1', '2', '3'),
+                List.of('D', 'E', 'F')
+        );
+        var actual = streamOfLinesToListOfLists(grid.rows());
+
+        Assertions.assertIterableEquals(expectedRows, actual);
     }
-    
+
     @Test
     void unevenGrid() {
         var grid = Grid.fromFile("src/test/resources/helper/uneven-grid.txt");
 
         var expectedRows = List.of(
-                StringLine.of("abc  "),
-                StringLine.of("    d"),
-                StringLine.of("...1 ")
+                List.of('a', 'b', 'c', ' ', ' '),
+                List.of(' ', ' ', ' ', ' ', 'd'),
+                List.of('.', '.', '.', '1', ' ')
         );
+        var actual = streamOfLinesToListOfLists(grid.rows());
 
-        Assertions.assertIterableEquals(expectedRows, grid.rows().toList());
+        Assertions.assertIterableEquals(expectedRows, actual);
     }
-    
+
     @Test
     void columnsCanBeRetrieved() {
         var grid = Grid.fromFile("src/test/resources/helper/simple-square.txt");
 
         var expectedColumns = List.of(
-                StringLine.of("a1D"),
-                StringLine.of("b2E"),
-                StringLine.of("c3F")
+                List.of('a', '1', 'D'),
+                List.of('b', '2', 'E'),
+                List.of('c', '3', 'F')
         );
+        var actual = streamOfLinesToListOfLists(grid.columns());
 
-        Assertions.assertIterableEquals(expectedColumns, grid.columns().toList());
+        Assertions.assertIterableEquals(expectedColumns, actual);
     }
-    
+
     @ParameterizedTest
     @MethodSource
     void positionsCanBeCheckedToSeeIfTheyAreOnGrid(int x, int y, boolean expected) {
@@ -57,7 +60,7 @@ public class GridTest {
         var position = new GridPosition(x, y);
         Assertions.assertEquals(expected, grid.containsPosition(position));
     }
-    
+
     private static Stream<Arguments> positionsCanBeCheckedToSeeIfTheyAreOnGrid() {
         return Stream.of(
                 Arguments.of(1, 2, true),
@@ -68,5 +71,8 @@ public class GridTest {
                 Arguments.of(3, 3, false)
         );
     }
-    
+
+    private static <T> List<List<T>> streamOfLinesToListOfLists(Stream<Line<T>> streamOfLines) {
+        return streamOfLines.map(line -> line.elements().toList()).toList();
+    }
 }
