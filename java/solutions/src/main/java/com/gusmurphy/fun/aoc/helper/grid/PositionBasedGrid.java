@@ -20,6 +20,6 @@ class PositionBasedGrid<E> extends BaseGrid<E> {
     }
 
     private static <E> Stream<List<E>> generateListsOf(E value, int length) {
-        return Stream.generate(() -> Collections.nCopies(length, value).stream().toList());
+        return Stream.generate(() -> new ArrayList<>(Collections.nCopies(length, value).stream().toList()));
     }
 }
