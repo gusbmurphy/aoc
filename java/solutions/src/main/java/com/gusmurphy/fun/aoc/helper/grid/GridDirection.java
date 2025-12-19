@@ -8,8 +8,8 @@ public enum GridDirection {
             throw new IllegalArgumentException("Positions must be different");
         }
 
-        var xDifference = a.x() - b.x();
-        var yDifference = a.y() - b.y();
+        var xDifference = b.x() - a.x();
+        var yDifference = b.y() - a.y();
 
         if (xDifference == 0) {
             if (yDifference > 0) {
@@ -42,6 +42,6 @@ public enum GridDirection {
             return NE;
         }
 
-        return SE;
+        return NW;
     }
 }
