@@ -39,6 +39,10 @@ public class TiledFloor {
         return redTilePositions.contains(position);
     }
 
+    public long sizeOfLargestRedCorneredRectangleInTiledArea() {
+        return 0;
+    }
+
     private enum Tile {
         RED, GREEN, BLANK
     }

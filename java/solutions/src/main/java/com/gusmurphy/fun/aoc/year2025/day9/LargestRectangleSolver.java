@@ -8,8 +8,7 @@ import java.util.stream.Stream;
 
 public class LargestRectangleSolver {
     public static long largestRectangleAreaInFile(String example) {
-        var positions = LineReader.readAllLinesFrom(example)
-                .map(LargestRectangleSolver::gridPositionFromString)
+        var positions = positionsInFile(example)
                 .collect(Collectors.toSet());
 
         return positions.stream()
@@ -26,6 +25,13 @@ public class LargestRectangleSolver {
     }
 
     public static long largestRectangleAreaWithinTilePerimeterInFile(String path) {
-        return 0;
+        var redTilePositions = positionsInFile(path).toList();
+        var floor = TiledFloor.withRedTilesAtPositions(redTilePositions);
+        return floor.sizeOfLargestRedCorneredRectangleInTiledArea();
+    }
+
+    private static Stream<GridPosition> positionsInFile(String example) {
+        return LineReader.readAllLinesFrom(example)
+                .map(LargestRectangleSolver::gridPositionFromString);
     }
 }
