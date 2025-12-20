@@ -27,6 +27,6 @@ public class LargestRectangleSolverTest {
         long actual = LargestRectangleSolver.largestRectangleAreaWithinTilePerimeterInFile(
                 ResourcePath.toTestResource(9, "example"));
 
-        Assertions.assertEquals(50, actual);
+        Assertions.assertEquals(24, actual);
     }
 }
