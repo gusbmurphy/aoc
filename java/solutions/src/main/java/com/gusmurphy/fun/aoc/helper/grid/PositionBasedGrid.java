@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
-class PositionBasedGrid<E> extends BaseGrid<E> {
+class PositionBasedGrid<E> extends NormalizedGrid<E> {
     PositionBasedGrid(Map<GridPosition, E> elementPositions, E emptyValue, int width, int height) {
         super(createRowsList(elementPositions, emptyValue, width, height));
     }
