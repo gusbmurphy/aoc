@@ -2,6 +2,7 @@ package com.gusmurphy.fun.aoc.year2025.day9;
 
 import com.gusmurphy.fun.aoc.ResourcePath;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class LargestRectangleSolverTest {
@@ -28,5 +29,14 @@ public class LargestRectangleSolverTest {
                 ResourcePath.toTestResource(9, "example"));
 
         Assertions.assertEquals(24, actual);
+    }
+
+    @Test
+    @Disabled
+    void part2MyInput() {
+        long actual = LargestRectangleSolver.largestRectangleAreaWithinTilePerimeterInFile(
+                ResourcePath.toRealInput(9));
+
+        Assertions.assertEquals(0, actual);
     }
 }
