@@ -14,8 +14,8 @@ public interface Grid<T> {
         return new FileGrid<>(path, characterConverter, emptyValue);
     }
 
-    static <T> Grid<T> fromPositions(Map<T, Set<GridPosition>> positions, T emptyValue, int width, int height) {
-        return new PositionBasedGrid<>(positions, emptyValue, width, height);
+    static <T> Grid<T> fromPositions(Map<GridPosition, T> elementPositions, T emptyValue, int width, int height) {
+        return new PositionBasedGrid<>(elementPositions, emptyValue, width, height);
     }
 
     Stream<Line<T>> rows();

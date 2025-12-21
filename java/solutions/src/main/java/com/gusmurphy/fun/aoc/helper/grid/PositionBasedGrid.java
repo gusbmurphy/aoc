@@ -5,13 +5,20 @@ import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
 class PositionBasedGrid<E> extends BaseGrid<E> {
-    PositionBasedGrid(Map<E, Set<GridPosition>> elementPositions, E emptyValue, int width, int height) {
+    PositionBasedGrid(Map<GridPosition, E> elementPositions, E emptyValue, int width, int height) {
         super(createRowsList(elementPositions, emptyValue, width, height));
     }
 
-    private static <E> List<List<E>> createRowsList(Map<E, Set<GridPosition>> elementPositions, E emptyValue, int width, int height) {
-        var rowsList = generateListsOf(emptyValue, width).limit(height).toList();
-        elementPositions.forEach(setPositionsForElementInRowsList(rowsList));
+    private static <E> List<List<E>> createRowsList(Map<GridPosition, E> elementPositions, E emptyValue, int width, int height) {
+        var rowsList = new ArrayList<List<E>>();
+        for (int y = 0; y < height; y++) {
+            var row = new ArrayList<E>();
+            for (int x = 0; x < width; x++) {
+                var element = elementPositions.getOrDefault(new GridPosition(x, y), emptyValue);
+                row.add(element);
+            }
+            rowsList.add(row);
+        }
         return rowsList;
     }
 

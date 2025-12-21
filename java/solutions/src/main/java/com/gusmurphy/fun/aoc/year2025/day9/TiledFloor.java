@@ -29,15 +29,16 @@ public class TiledFloor {
         GridPosition.positionsBetweenExclusive(redTilePositionList.getLast(), redTilePositionList.getFirst())
                 .forEach(greenPositions::add);
 
-        var redTilePositionSet = new HashSet<>(redTilePositionList);
-        this.redTilePositions = redTilePositionSet;
-        Map<Tile, Set<GridPosition>> tileColorPositions = Map.of(
-                Tile.RED, redTilePositionSet, Tile.GREEN, greenPositions);
+        var tilePositionMap = new HashMap<GridPosition, Tile>();
+        redTilePositionList.forEach(position -> tilePositionMap.put(position, Tile.RED));
+        greenPositions.forEach(position -> tilePositionMap.put(position, Tile.GREEN));
+
+        this.redTilePositions = new HashSet<>(redTilePositionList);
 
         var width = redTilePositionList.stream().mapToInt(GridPosition::x).max().orElseThrow() + 2;
         var height = redTilePositionList.stream().mapToInt(GridPosition::y).max().orElseThrow() + 2;
 
-        grid = Grid.fromPositions(tileColorPositions, Tile.BLANK, width, height);
+        grid = Grid.fromPositions(tilePositionMap, Tile.BLANK, width, height);
     }
 
     public static TiledFloor withRedTilesAtPositions(List<GridPosition> positions) {
