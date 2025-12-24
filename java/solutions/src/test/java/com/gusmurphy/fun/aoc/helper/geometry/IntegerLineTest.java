@@ -1,9 +1,11 @@
 package com.gusmurphy.fun.aoc.helper.geometry;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,6 +30,22 @@ class IntegerLineTest {
                 Arguments.of(new IntegerPoint(2, 1)),
                 Arguments.of(new IntegerPoint(4, 1))
         );
+    }
+
+    @Test
+    void pointsOnLineCanBeRetrieved() {
+        var line = IntegerLine.between(
+                new IntegerPoint(1, 1),
+                new IntegerPoint(3, 3)
+        );
+
+        var actual = line.elements().toList();
+        var expected = List.of(
+                new IntegerPoint(1, 1),
+                new IntegerPoint(2, 2),
+                new IntegerPoint(3, 3)
+        );
+        assertIterableEquals(expected, actual);
     }
 
 }

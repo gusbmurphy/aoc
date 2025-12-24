@@ -28,6 +28,8 @@ public class IntegerLine implements Line<IntegerPoint> {
 
     @Override
     public Stream<IntegerPoint> elements() {
-        return Stream.empty();
+        return Stream.iterate(start,
+                point -> !point.equals(end.toThe(direction)),
+                point -> point.toThe(direction));
     }
 }
