@@ -3,8 +3,6 @@ package com.gusmurphy.fun.aoc.helper.grid;
 import com.gusmurphy.fun.aoc.helper.geometry.IntegerPoint;
 
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.stream.Stream;
 
 class PositionBasedGrid<E> extends NormalizedGrid<E> {
     PositionBasedGrid(Map<IntegerPoint, E> elementPositions, E emptyValue, int width, int height) {
@@ -24,11 +22,4 @@ class PositionBasedGrid<E> extends NormalizedGrid<E> {
         return rowsList;
     }
 
-    private static <E> BiConsumer<E, Set<IntegerPoint>> setPositionsForElementInRowsList(List<List<E>> rowsList) {
-        return (key, value) -> value.forEach(p -> rowsList.get(p.y()).set(p.x(), key));
-    }
-
-    private static <E> Stream<List<E>> generateListsOf(E value, int length) {
-        return Stream.generate(() -> new ArrayList<>(Collections.nCopies(length, value).stream().toList()));
-    }
 }
