@@ -1,7 +1,7 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
 import com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection;
-import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+import com.gusmurphy.fun.aoc.helper.geometry.IntegerPoint;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -16,7 +16,7 @@ class CardinalDirectionTest {
 
     @ParameterizedTest
     @MethodSource
-    void directionFromOnePointToAnother(TwoDimensionalPoint a, TwoDimensionalPoint b, CardinalDirection expected) {
+    void directionFromOnePointToAnother(IntegerPoint a, IntegerPoint b, CardinalDirection expected) {
         var actual = CardinalDirection.fromAToB(a, b);
         assertEquals(expected, actual);
     }
@@ -34,8 +34,8 @@ class CardinalDirectionTest {
         );
     }
 
-    private static TwoDimensionalPoint position(int x, int y) {
-        return new TwoDimensionalPoint(x, y);
+    private static IntegerPoint position(int x, int y) {
+        return new IntegerPoint(x, y);
     }
 
 }

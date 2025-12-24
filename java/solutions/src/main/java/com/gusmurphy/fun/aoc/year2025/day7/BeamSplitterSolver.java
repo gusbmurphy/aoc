@@ -1,7 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day7;
 
 import com.gusmurphy.fun.aoc.helper.grid.Grid;
-import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+import com.gusmurphy.fun.aoc.helper.geometry.IntegerPoint;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +30,7 @@ public class BeamSplitterSolver {
         return new PathCounter(grid).countPaths();
     }
 
-    private static Stream<TwoDimensionalPoint> nextPositionsFrom(TwoDimensionalPoint p, List<TwoDimensionalPoint> splitterPositions) {
+    private static Stream<IntegerPoint> nextPositionsFrom(IntegerPoint p, List<IntegerPoint> splitterPositions) {
         var positionToTheSouth = p.toThe(S);
         if (splitterPositions.contains(positionToTheSouth)) {
             return Stream.of(positionToTheSouth.toThe(W), positionToTheSouth.toThe(E));
@@ -39,19 +39,19 @@ public class BeamSplitterSolver {
     }
 
     private static class BeamProgression {
-        private final List<TwoDimensionalPoint> currentBeamHeads;
+        private final List<IntegerPoint> currentBeamHeads;
         private final int splitCount;
 
-        private BeamProgression(List<TwoDimensionalPoint> currentBeamHeads, int splitCount) {
+        private BeamProgression(List<IntegerPoint> currentBeamHeads, int splitCount) {
             this.currentBeamHeads = currentBeamHeads;
             this.splitCount = splitCount;
         }
 
-        static BeamProgression startingAt(TwoDimensionalPoint position) {
+        static BeamProgression startingAt(IntegerPoint position) {
             return new BeamProgression(List.of(position), 0);
         }
 
-        Optional<BeamProgression> nextWith(List<TwoDimensionalPoint> splitterPositions, Grid<?> grid) {
+        Optional<BeamProgression> nextWith(List<IntegerPoint> splitterPositions, Grid<?> grid) {
             AtomicInteger newSplitCount = new AtomicInteger(0);
             var newBeamPositions = currentBeamHeads.stream()
                     .flatMap(beamHead -> {

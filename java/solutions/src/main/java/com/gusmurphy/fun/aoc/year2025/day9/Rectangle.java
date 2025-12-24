@@ -1,6 +1,6 @@
 package com.gusmurphy.fun.aoc.year2025.day9;
 
-import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+import com.gusmurphy.fun.aoc.helper.geometry.IntegerPoint;
 
 import java.util.Comparator;
 import java.util.Objects;
@@ -8,12 +8,12 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class Rectangle {
-    private final TwoDimensionalPoint c1;
-    private final TwoDimensionalPoint c2;
+    private final IntegerPoint c1;
+    private final IntegerPoint c2;
 
-    public Rectangle(TwoDimensionalPoint c1, TwoDimensionalPoint c2) {
+    public Rectangle(IntegerPoint c1, IntegerPoint c2) {
         var sorted = Stream.of(c1, c2)
-                .sorted(Comparator.comparing(TwoDimensionalPoint::x).thenComparing(TwoDimensionalPoint::y))
+                .sorted(Comparator.comparing(IntegerPoint::x).thenComparing(IntegerPoint::y))
                 .toList();
         this.c1 = sorted.getFirst();
         this.c2 = sorted.getLast();
@@ -25,9 +25,9 @@ class Rectangle {
         return width * height;
     }
 
-    public Stream<TwoDimensionalPoint> allPositions() {
+    public Stream<IntegerPoint> allPositions() {
         return xRangeBetweenCorners().boxed().flatMap(x ->
-                yRangeBetweenCorners().boxed().map(y -> new TwoDimensionalPoint(x, y)));
+                yRangeBetweenCorners().boxed().map(y -> new IntegerPoint(x, y)));
     }
 
     private IntStream xRangeBetweenCorners() {

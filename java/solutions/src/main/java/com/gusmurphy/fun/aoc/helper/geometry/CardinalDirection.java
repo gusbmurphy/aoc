@@ -3,7 +3,7 @@ package com.gusmurphy.fun.aoc.helper.geometry;
 public enum CardinalDirection {
     N, NE, E, SE, S, SW, W, NW;
 
-    public static CardinalDirection fromAToB(TwoDimensionalPoint a, TwoDimensionalPoint b) {
+    public static CardinalDirection fromAToB(IntegerPoint a, IntegerPoint b) {
         if (a.equals(b)) {
             throw new IllegalArgumentException("Positions must be different");
         }

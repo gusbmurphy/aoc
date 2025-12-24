@@ -1,7 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day7;
 
 import com.gusmurphy.fun.aoc.helper.grid.Grid;
-import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+import com.gusmurphy.fun.aoc.helper.geometry.IntegerPoint;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,10 +10,10 @@ import static com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection.*;
 import static com.gusmurphy.fun.aoc.year2025.day7.BeamConstants.*;
 
 class PathCounter {
-    private final HashMap<TwoDimensionalPoint, Long> memo = new HashMap<>();
+    private final HashMap<IntegerPoint, Long> memo = new HashMap<>();
     private final Grid<?> grid;
-    private final List<TwoDimensionalPoint> splitters;
-    private final TwoDimensionalPoint start;
+    private final List<IntegerPoint> splitters;
+    private final IntegerPoint start;
 
     PathCounter(Grid<Character> grid) {
         this.start = grid.positionsOf(START).findFirst().orElseThrow();
@@ -25,7 +25,7 @@ class PathCounter {
         return memoizedCountFrom(start);
     }
 
-    private long memoizedCountFrom(TwoDimensionalPoint p) {
+    private long memoizedCountFrom(IntegerPoint p) {
         if (memo.containsKey(p)) {
             return memo.get(p);
         }

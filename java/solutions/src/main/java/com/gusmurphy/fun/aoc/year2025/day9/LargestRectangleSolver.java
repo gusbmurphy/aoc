@@ -1,7 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day9;
 
 import com.gusmurphy.fun.aoc.helper.LineReader;
-import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+import com.gusmurphy.fun.aoc.helper.geometry.IntegerPoint;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,9 +19,9 @@ public class LargestRectangleSolver {
                 .max().orElseThrow();
     }
 
-    private static TwoDimensionalPoint gridPositionFromString(String s) {
+    private static IntegerPoint gridPositionFromString(String s) {
         var digits = Stream.of(s.split(",")).map(Integer::valueOf).toList();
-        return new TwoDimensionalPoint(digits.getFirst(), digits.getLast());
+        return new IntegerPoint(digits.getFirst(), digits.getLast());
     }
 
     public static long largestRectangleAreaWithinTilePerimeterInFile(String path) {
@@ -30,7 +30,7 @@ public class LargestRectangleSolver {
         return floor.sizeOfLargestRedCorneredRectangleInTiledArea();
     }
 
-    private static Stream<TwoDimensionalPoint> positionsInFile(String example) {
+    private static Stream<IntegerPoint> positionsInFile(String example) {
         return LineReader.readAllLinesFrom(example)
                 .map(LargestRectangleSolver::gridPositionFromString);
     }

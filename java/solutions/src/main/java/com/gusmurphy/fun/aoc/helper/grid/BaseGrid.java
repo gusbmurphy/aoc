@@ -1,7 +1,7 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
 import com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection;
-import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+import com.gusmurphy.fun.aoc.helper.geometry.IntegerPoint;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -38,12 +38,12 @@ public abstract class BaseGrid<E> implements Grid<E> {
     }
 
     @Override
-    public boolean containsPosition(TwoDimensionalPoint position) {
+    public boolean containsPosition(IntegerPoint position) {
         return position.x() < width && position.y() < height;
     }
 
     @Override
-    public Line<E> lineFromPositionHeading(TwoDimensionalPoint position, CardinalDirection direction) {
+    public Line<E> lineFromPositionHeading(IntegerPoint position, CardinalDirection direction) {
         if (BaseGrid.directionIsDiagonal(direction)) {
             throw new IllegalArgumentException("No implementation for diagonal headings");
         }
@@ -55,15 +55,15 @@ public abstract class BaseGrid<E> implements Grid<E> {
     }
 
     @Override
-    public Stream<TwoDimensionalPoint> positionsOf(E character) {
+    public Stream<IntegerPoint> positionsOf(E character) {
         return IntStream.range(0, width)
                 .boxed()
                 .flatMap(x -> IntStream.range(0, height)
-                        .mapToObj(y -> new TwoDimensionalPoint(x, y))
+                        .mapToObj(y -> new IntegerPoint(x, y))
                         .filter(pos -> elementAt(pos).equals(character)));
     }
 
-    private E elementAt(TwoDimensionalPoint pos) {
+    private E elementAt(IntegerPoint pos) {
         return listRows.get(pos.y()).get(pos.x());
     }
 

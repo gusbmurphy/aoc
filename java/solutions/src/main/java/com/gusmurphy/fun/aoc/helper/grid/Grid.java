@@ -1,7 +1,7 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
 import com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection;
-import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+import com.gusmurphy.fun.aoc.helper.geometry.IntegerPoint;
 
 import java.util.Map;
 import java.util.stream.Stream;
@@ -11,7 +11,7 @@ public interface Grid<T> {
         return new FileGrid<>(path, (c) -> c, ' ');
     }
 
-    static <T> Grid<T> fromPositions(Map<TwoDimensionalPoint, T> elementPositions, T emptyValue, int width, int height) {
+    static <T> Grid<T> fromPositions(Map<IntegerPoint, T> elementPositions, T emptyValue, int width, int height) {
         return new PositionBasedGrid<>(elementPositions, emptyValue, width, height);
     }
 
@@ -19,9 +19,9 @@ public interface Grid<T> {
 
     Stream<Line<T>> columns();
 
-    boolean containsPosition(TwoDimensionalPoint position);
+    boolean containsPosition(IntegerPoint position);
 
-    Stream<TwoDimensionalPoint> positionsOf(T t);
+    Stream<IntegerPoint> positionsOf(T t);
 
-    Line<T> lineFromPositionHeading(TwoDimensionalPoint position, CardinalDirection direction);
+    Line<T> lineFromPositionHeading(IntegerPoint position, CardinalDirection direction);
 }

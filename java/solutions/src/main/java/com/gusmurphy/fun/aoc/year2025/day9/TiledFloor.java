@@ -2,7 +2,7 @@ package com.gusmurphy.fun.aoc.year2025.day9;
 
 import com.gusmurphy.fun.aoc.helper.grid.Grid;
 import com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection;
-import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+import com.gusmurphy.fun.aoc.helper.geometry.IntegerPoint;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -14,34 +14,34 @@ import java.util.stream.Stream;
 
 public class TiledFloor {
     private final Grid<Tile> grid;
-    private final Set<TwoDimensionalPoint> redTilePositions;
+    private final Set<IntegerPoint> redTilePositions;
 
-    private TiledFloor(List<TwoDimensionalPoint> redTilePositionList) {
-        var greenPositions = new HashSet<TwoDimensionalPoint>();
+    private TiledFloor(List<IntegerPoint> redTilePositionList) {
+        var greenPositions = new HashSet<IntegerPoint>();
 
         for (int i = 0, j = 1; j < redTilePositionList.size(); i++, j++) {
             var lineStart = redTilePositionList.get(i);
             var lineEnd = redTilePositionList.get(j);
-            TwoDimensionalPoint.positionsBetweenExclusive(lineStart, lineEnd)
+            IntegerPoint.positionsBetweenExclusive(lineStart, lineEnd)
                     .forEach(greenPositions::add);
         }
 
-        TwoDimensionalPoint.positionsBetweenExclusive(redTilePositionList.getLast(), redTilePositionList.getFirst())
+        IntegerPoint.positionsBetweenExclusive(redTilePositionList.getLast(), redTilePositionList.getFirst())
                 .forEach(greenPositions::add);
 
-        var tilePositionMap = new HashMap<TwoDimensionalPoint, Tile>();
+        var tilePositionMap = new HashMap<IntegerPoint, Tile>();
         redTilePositionList.forEach(position -> tilePositionMap.put(position, Tile.RED));
         greenPositions.forEach(position -> tilePositionMap.put(position, Tile.GREEN));
 
         this.redTilePositions = new HashSet<>(redTilePositionList);
 
-        var width = redTilePositionList.stream().mapToInt(TwoDimensionalPoint::x).max().orElseThrow() + 2;
-        var height = redTilePositionList.stream().mapToInt(TwoDimensionalPoint::y).max().orElseThrow() + 2;
+        var width = redTilePositionList.stream().mapToInt(IntegerPoint::x).max().orElseThrow() + 2;
+        var height = redTilePositionList.stream().mapToInt(IntegerPoint::y).max().orElseThrow() + 2;
 
         grid = Grid.fromPositions(tilePositionMap, Tile.BLANK, width, height);
     }
 
-    public static TiledFloor withRedTilesAtPositions(List<TwoDimensionalPoint> positions) {
+    public static TiledFloor withRedTilesAtPositions(List<IntegerPoint> positions) {
         return new TiledFloor(positions);
     }
 
@@ -63,7 +63,7 @@ public class TiledFloor {
                 .allMatch(this::positionIsInTiledArea);
     }
 
-    private boolean positionIsInTiledArea(TwoDimensionalPoint position) {
+    private boolean positionIsInTiledArea(IntegerPoint position) {
         var intersectionsOnRay = numberOfBorderIntersectionsForHorizontalRayByYCoordinate(position.y());
         var numberOfIntersectionsAtX = intersectionsOnRay.get(position.x());
         return numberOfIntersectionsAtX % 2 != 0;
@@ -76,7 +76,7 @@ public class TiledFloor {
     }
 
     private Map<Integer, Integer> getIntersectionMapFor(int y) {
-        var ray = grid.lineFromPositionHeading(new TwoDimensionalPoint(0, y), CardinalDirection.E);
+        var ray = grid.lineFromPositionHeading(new IntegerPoint(0, y), CardinalDirection.E);
         return ray.elements().collect(new RayIntersectionCollector());
     }
 

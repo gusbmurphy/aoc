@@ -1,6 +1,6 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
-import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+import com.gusmurphy.fun.aoc.helper.geometry.IntegerPoint;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -58,7 +58,7 @@ public class GridTest {
     @MethodSource
     void positionsCanBeCheckedToSeeIfTheyAreOnGrid(int x, int y, boolean expected) {
         var grid = Grid.fromFile("src/test/resources/helper/simple-square.txt");
-        var position = new TwoDimensionalPoint(x, y);
+        var position = new IntegerPoint(x, y);
         Assertions.assertEquals(expected, grid.containsPosition(position));
     }
 
