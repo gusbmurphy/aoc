@@ -8,28 +8,17 @@ import java.util.stream.Stream;
 public class IntegerLine implements Line<IntegerPoint> {
     private final IntegerPoint start;
     private final IntegerPoint end;
+    private final CardinalDirection direction;
 
-    private IntegerLine(IntegerPoint start, IntegerPoint end) {
+    private IntegerLine(IntegerPoint start, IntegerPoint end, CardinalDirection direction) {
         this.start = start;
         this.end = end;
+        this.direction = direction;
     }
 
     public static IntegerLine between(IntegerPoint start, IntegerPoint end) {
-        if (directionBetweenPointsIsNotCardinal(start, end)) {
-            throw new IllegalArgumentException("Points must be an exact cardinal direction from each other");
-        }
-        return new IntegerLine(start, end);
-    }
-
-    private static boolean directionBetweenPointsIsNotCardinal(IntegerPoint a, IntegerPoint b) {
-        var xDifference = Math.abs(a.x() - b.x());
-        var yDifference = Math.abs(a.y() - b.y());
-
-        if (xDifference == 0 || yDifference == 0) {
-            return false;
-        }
-
-        return xDifference != yDifference;
+        var direction = CardinalDirection.fromAToB(start, end);
+        return new IntegerLine(start, end, direction);
     }
 
     @Override
