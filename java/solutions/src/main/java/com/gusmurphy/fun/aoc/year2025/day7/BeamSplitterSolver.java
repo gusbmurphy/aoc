@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-import static com.gusmurphy.fun.aoc.helper.grid.GridDirection.*;
+import static com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection.*;
 import static com.gusmurphy.fun.aoc.year2025.day7.BeamConstants.*;
 
 public class BeamSplitterSolver {

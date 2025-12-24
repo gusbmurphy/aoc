@@ -1,5 +1,6 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
+import com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection;
 import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -9,14 +10,14 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import static com.gusmurphy.fun.aoc.helper.grid.GridDirection.*;
+import static com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection.*;
 
-class GridDirectionTest {
+class CardinalDirectionTest {
 
     @ParameterizedTest
     @MethodSource
-    void directionFromOnePointToAnother(TwoDimensionalPoint a, TwoDimensionalPoint b, GridDirection expected) {
-        var actual = GridDirection.fromAToB(a, b);
+    void directionFromOnePointToAnother(TwoDimensionalPoint a, TwoDimensionalPoint b, CardinalDirection expected) {
+        var actual = CardinalDirection.fromAToB(a, b);
         assertEquals(expected, actual);
     }
 

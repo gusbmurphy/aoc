@@ -1,5 +1,6 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
+import com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection;
 import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
 
 import java.util.List;
@@ -7,10 +8,10 @@ import java.util.function.Supplier;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static com.gusmurphy.fun.aoc.helper.grid.GridDirection.*;
+import static com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection.*;
 
 public abstract class BaseGrid<E> implements Grid<E> {
-    private static final List<GridDirection> DIAGONAL_DIRECTIONS = List.of(NW, NE, SE, SW);
+    private static final List<CardinalDirection> DIAGONAL_DIRECTIONS = List.of(NW, NE, SE, SW);
     protected final List<List<E>> listRows;
     protected final int width;
     protected final int height;
@@ -21,7 +22,7 @@ public abstract class BaseGrid<E> implements Grid<E> {
         height = listRows.size();
     }
 
-    private static boolean directionIsDiagonal(GridDirection direction) {
+    private static boolean directionIsDiagonal(CardinalDirection direction) {
         return DIAGONAL_DIRECTIONS.contains(direction);
     }
 
@@ -42,7 +43,7 @@ public abstract class BaseGrid<E> implements Grid<E> {
     }
 
     @Override
-    public Line<E> lineFromPositionHeading(TwoDimensionalPoint position, GridDirection direction) {
+    public Line<E> lineFromPositionHeading(TwoDimensionalPoint position, CardinalDirection direction) {
         if (BaseGrid.directionIsDiagonal(direction)) {
             throw new IllegalArgumentException("No implementation for diagonal headings");
         }

@@ -1,11 +1,9 @@
-package com.gusmurphy.fun.aoc.helper.grid;
+package com.gusmurphy.fun.aoc.helper.geometry;
 
-import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
-
-public enum GridDirection {
+public enum CardinalDirection {
     N, NE, E, SE, S, SW, W, NW;
 
-    public static GridDirection fromAToB(TwoDimensionalPoint a, TwoDimensionalPoint b) {
+    public static CardinalDirection fromAToB(TwoDimensionalPoint a, TwoDimensionalPoint b) {
         if (a.equals(b)) {
             throw new IllegalArgumentException("Positions must be different");
         }

@@ -1,11 +1,9 @@
 package com.gusmurphy.fun.aoc.helper.geometry;
 
-import com.gusmurphy.fun.aoc.helper.grid.GridDirection;
-
 import java.util.stream.Stream;
 
 public record TwoDimensionalPoint(int x, int y) {
-    public TwoDimensionalPoint toThe(GridDirection direction) {
+    public TwoDimensionalPoint toThe(CardinalDirection direction) {
         return switch (direction) {
             case N -> new TwoDimensionalPoint(this.x, this.y - 1);
             case NE -> new TwoDimensionalPoint(this.x + 1, this.y - 1);
@@ -19,7 +17,7 @@ public record TwoDimensionalPoint(int x, int y) {
     }
 
     public static Stream<TwoDimensionalPoint> positionsBetweenExclusive(TwoDimensionalPoint a, TwoDimensionalPoint b) {
-        var direction = GridDirection.fromAToB(a, b);
+        var direction = CardinalDirection.fromAToB(a, b);
         return Stream.iterate(a, position -> position.toThe(direction))
                 .skip(1)
                 .takeWhile(position -> !position.equals(b));

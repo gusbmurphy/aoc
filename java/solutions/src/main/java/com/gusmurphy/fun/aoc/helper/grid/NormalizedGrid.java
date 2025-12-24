@@ -1,5 +1,6 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
+import com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection;
 import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public abstract class NormalizedGrid<E> extends BaseGrid<E> {
     }
 
     @Override
-    public Line<E> lineFromPositionHeading(TwoDimensionalPoint position, GridDirection direction) {
+    public Line<E> lineFromPositionHeading(TwoDimensionalPoint position, CardinalDirection direction) {
         return super.lineFromPositionHeading(normalizedPosition(position), direction);
     }
 

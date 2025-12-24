@@ -1,5 +1,6 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
+import com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection;
 import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,13 +9,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static com.gusmurphy.fun.aoc.helper.grid.GridDirection.*;
+import static com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection.*;
 
 public class TwoDimensionalPointTest {
     
     @ParameterizedTest
     @MethodSource
-    void weCanGetAdjacentPositions(GridDirection direction, TwoDimensionalPoint expected) {
+    void weCanGetAdjacentPositions(CardinalDirection direction, TwoDimensionalPoint expected) {
         var position = new TwoDimensionalPoint(1, 1);
         var actual = position.toThe(direction);
         Assertions.assertEquals(expected, actual);

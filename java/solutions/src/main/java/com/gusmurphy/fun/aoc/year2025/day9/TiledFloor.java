@@ -1,7 +1,7 @@
 package com.gusmurphy.fun.aoc.year2025.day9;
 
 import com.gusmurphy.fun.aoc.helper.grid.Grid;
-import com.gusmurphy.fun.aoc.helper.grid.GridDirection;
+import com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection;
 import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
 
 import java.util.*;
@@ -76,7 +76,7 @@ public class TiledFloor {
     }
 
     private Map<Integer, Integer> getIntersectionMapFor(int y) {
-        var ray = grid.lineFromPositionHeading(new TwoDimensionalPoint(0, y), GridDirection.E);
+        var ray = grid.lineFromPositionHeading(new TwoDimensionalPoint(0, y), CardinalDirection.E);
         return ray.elements().collect(new RayIntersectionCollector());
     }
 

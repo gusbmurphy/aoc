@@ -6,7 +6,7 @@ import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.gusmurphy.fun.aoc.helper.grid.GridDirection.*;
+import static com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection.*;
 import static com.gusmurphy.fun.aoc.year2025.day7.BeamConstants.*;
 
 class PathCounter {
