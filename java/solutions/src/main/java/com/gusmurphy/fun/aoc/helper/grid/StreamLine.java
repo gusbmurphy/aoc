@@ -1,7 +1,5 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
-import com.gusmurphy.fun.aoc.helper.geometry.Line;
-
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
