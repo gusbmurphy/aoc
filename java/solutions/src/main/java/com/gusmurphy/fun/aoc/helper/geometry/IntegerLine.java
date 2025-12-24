@@ -23,7 +23,7 @@ public class IntegerLine implements Line<IntegerPoint> {
 
     @Override
     public Optional<IntegerPoint> get(int i) {
-        return Optional.empty();
+        return elements().skip(i - 1).findFirst();
     }
 
     @Override
