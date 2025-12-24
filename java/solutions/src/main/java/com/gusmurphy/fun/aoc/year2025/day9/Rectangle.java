@@ -1,20 +1,19 @@
 package com.gusmurphy.fun.aoc.year2025.day9;
 
-import com.gusmurphy.fun.aoc.helper.grid.GridPosition;
+import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class Rectangle {
-    private final GridPosition c1;
-    private final GridPosition c2;
+    private final TwoDimensionalPoint c1;
+    private final TwoDimensionalPoint c2;
 
-    public Rectangle(GridPosition c1, GridPosition c2) {
+    public Rectangle(TwoDimensionalPoint c1, TwoDimensionalPoint c2) {
         var sorted = Stream.of(c1, c2)
-                .sorted(Comparator.comparing(GridPosition::x).thenComparing(GridPosition::y))
+                .sorted(Comparator.comparing(TwoDimensionalPoint::x).thenComparing(TwoDimensionalPoint::y))
                 .toList();
         this.c1 = sorted.getFirst();
         this.c2 = sorted.getLast();
@@ -26,9 +25,9 @@ class Rectangle {
         return width * height;
     }
 
-    public Stream<GridPosition> allPositions() {
+    public Stream<TwoDimensionalPoint> allPositions() {
         return xRangeBetweenCorners().boxed().flatMap(x ->
-                yRangeBetweenCorners().boxed().map(y -> new GridPosition(x, y)));
+                yRangeBetweenCorners().boxed().map(y -> new TwoDimensionalPoint(x, y)));
     }
 
     private IntStream xRangeBetweenCorners() {

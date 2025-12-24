@@ -1,5 +1,6 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
+import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -14,7 +15,7 @@ class GridDirectionTest {
 
     @ParameterizedTest
     @MethodSource
-    void directionFromOnePointToAnother(GridPosition a, GridPosition b, GridDirection expected) {
+    void directionFromOnePointToAnother(TwoDimensionalPoint a, TwoDimensionalPoint b, GridDirection expected) {
         var actual = GridDirection.fromAToB(a, b);
         assertEquals(expected, actual);
     }
@@ -32,8 +33,8 @@ class GridDirectionTest {
         );
     }
 
-    private static GridPosition position(int x, int y) {
-        return new GridPosition(x, y);
+    private static TwoDimensionalPoint position(int x, int y) {
+        return new TwoDimensionalPoint(x, y);
     }
 
 }

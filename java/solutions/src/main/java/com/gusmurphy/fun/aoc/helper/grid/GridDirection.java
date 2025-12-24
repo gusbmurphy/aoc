@@ -1,9 +1,11 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
+import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+
 public enum GridDirection {
     N, NE, E, SE, S, SW, W, NW;
 
-    public static GridDirection fromAToB(GridPosition a, GridPosition b) {
+    public static GridDirection fromAToB(TwoDimensionalPoint a, TwoDimensionalPoint b) {
         if (a.equals(b)) {
             throw new IllegalArgumentException("Positions must be different");
         }

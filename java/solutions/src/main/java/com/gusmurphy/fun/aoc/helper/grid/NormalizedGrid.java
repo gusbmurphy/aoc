@@ -1,5 +1,7 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
+import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -14,26 +16,26 @@ public abstract class NormalizedGrid<E> extends BaseGrid<E> {
     }
 
     @Override
-    public boolean containsPosition(GridPosition position) {
+    public boolean containsPosition(TwoDimensionalPoint position) {
         return super.containsPosition(normalizedPosition(position));
     }
 
     @Override
-    public Line<E> lineFromPositionHeading(GridPosition position, GridDirection direction) {
+    public Line<E> lineFromPositionHeading(TwoDimensionalPoint position, GridDirection direction) {
         return super.lineFromPositionHeading(normalizedPosition(position), direction);
     }
 
     @Override
-    public Stream<GridPosition> positionsOf(E character) {
+    public Stream<TwoDimensionalPoint> positionsOf(E character) {
         return super.positionsOf(character).map(this::denormalizedPosition);
     }
 
     // Not sure if I'm using "normalized" or "denormalized" correctly here...
-    private GridPosition normalizedPosition(GridPosition position) {
-        return new GridPosition(position.x() - xOffset, position.y() - yOffset);
+    private TwoDimensionalPoint normalizedPosition(TwoDimensionalPoint position) {
+        return new TwoDimensionalPoint(position.x() - xOffset, position.y() - yOffset);
     }
 
-    private GridPosition denormalizedPosition(GridPosition position) {
-        return new GridPosition(position.x() + xOffset, position.y() - yOffset);
+    private TwoDimensionalPoint denormalizedPosition(TwoDimensionalPoint position) {
+        return new TwoDimensionalPoint(position.x() + xOffset, position.y() - yOffset);
     }
 }

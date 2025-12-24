@@ -1,5 +1,7 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
+import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
+
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
@@ -35,12 +37,12 @@ public abstract class BaseGrid<E> implements Grid<E> {
     }
 
     @Override
-    public boolean containsPosition(GridPosition position) {
+    public boolean containsPosition(TwoDimensionalPoint position) {
         return position.x() < width && position.y() < height;
     }
 
     @Override
-    public Line<E> lineFromPositionHeading(GridPosition position, GridDirection direction) {
+    public Line<E> lineFromPositionHeading(TwoDimensionalPoint position, GridDirection direction) {
         if (BaseGrid.directionIsDiagonal(direction)) {
             throw new IllegalArgumentException("No implementation for diagonal headings");
         }
@@ -52,15 +54,15 @@ public abstract class BaseGrid<E> implements Grid<E> {
     }
 
     @Override
-    public Stream<GridPosition> positionsOf(E character) {
+    public Stream<TwoDimensionalPoint> positionsOf(E character) {
         return IntStream.range(0, width)
                 .boxed()
                 .flatMap(x -> IntStream.range(0, height)
-                        .mapToObj(y -> new GridPosition(x, y))
+                        .mapToObj(y -> new TwoDimensionalPoint(x, y))
                         .filter(pos -> elementAt(pos).equals(character)));
     }
 
-    private E elementAt(GridPosition pos) {
+    private E elementAt(TwoDimensionalPoint pos) {
         return listRows.get(pos.y()).get(pos.x());
     }
 
