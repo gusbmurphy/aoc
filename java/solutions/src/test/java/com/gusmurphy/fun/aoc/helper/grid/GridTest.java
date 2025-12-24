@@ -1,5 +1,6 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
+import com.gusmurphy.fun.aoc.helper.geometry.Line;
 import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

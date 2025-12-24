@@ -1,4 +1,4 @@
-package com.gusmurphy.fun.aoc.helper.grid;
+package com.gusmurphy.fun.aoc.helper.geometry;
 
 import java.util.Optional;
 import java.util.stream.Stream;

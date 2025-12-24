@@ -1,6 +1,7 @@
 package com.gusmurphy.fun.aoc.helper.grid;
 
 import com.gusmurphy.fun.aoc.helper.geometry.CardinalDirection;
+import com.gusmurphy.fun.aoc.helper.geometry.Line;
 import com.gusmurphy.fun.aoc.helper.geometry.TwoDimensionalPoint;
 
 import java.util.Map;
