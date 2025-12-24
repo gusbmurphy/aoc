@@ -6,6 +6,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,6 +47,23 @@ class IntegerLineTest {
                 new IntegerPoint(3, 3)
         );
         assertIterableEquals(expected, actual);
+    }
+
+    @Test
+    void intersectionOfLines() {
+        var lineA = IntegerLine.between(
+                new IntegerPoint(1, 1),
+                new IntegerPoint(3, 3)
+        );
+
+        var lineB = IntegerLine.between(
+                new IntegerPoint(1, 3),
+                new IntegerPoint(3, 1)
+        );
+
+        var actual = lineA.intersectionWith(lineB);
+        var expected = Optional.of(new IntegerPoint(2, 2));
+        assertEquals(expected, actual);
     }
 
 }
