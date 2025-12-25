@@ -13,4 +13,10 @@ class SimilarityScoreTest {
         assertEquals(31, actual);
     }
 
+    @Test
+    void similarityScoreForMyInput() {
+        long actual = SimilarityScore.ofListsInFile(ResourcePath.toRealInput(2024, 1));
+        assertEquals(19097157, actual);
+    }
+
 }

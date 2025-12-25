@@ -12,9 +12,14 @@ public class ResourcePath {
     public static String toTestResource(int day, String name) {
         return toTestResource(2025, day, name);
     }
-    
+
+    public static String toRealInput(int year, int day) {
+        return String.format("src/main/resources/input/year%s/day%s.txt", year, day);
+    }
+
+    @Deprecated
     public static String toRealInput(int day) {
-        return String.format("src/main/resources/input/year2025/day%s.txt", day);
+        return toRealInput(2025, day);
     }
 
 }
