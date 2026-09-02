@@ -1,6 +1,8 @@
+from pathlib import Path
+
 import pytest
 
-from year_2023.day_1 import calibration_parser
+from year_2023.day_1 import calibration_parser, calibration
 
 
 @pytest.mark.parametrize("input,expected", [
@@ -12,3 +14,8 @@ from year_2023.day_1 import calibration_parser
 def test_calibration(input, expected):
     result = calibration_parser.parse(input)
     assert result == expected
+
+def test_example_data():
+    example_path = Path(__file__).parent / "example.txt"
+    result = calibration.parse_file(example_path)
+    assert result == 142
