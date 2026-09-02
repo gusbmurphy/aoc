@@ -15,7 +15,14 @@ def test_calibration(input, expected):
     result = calibration_parser.parse(input)
     assert result == expected
 
+
 def test_example_data():
     example_path = Path(__file__).parent / "example.txt"
     result = calibration.parse_file(example_path)
     assert result == 142
+
+
+def test_actual():
+    example_path = Path(__file__).parent / "input.txt"
+    result = calibration.parse_file(example_path)
+    assert result == 53974
