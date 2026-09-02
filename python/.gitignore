@@ -5,3 +5,6 @@ build/
 dist/
 wheels/
 *.egg-info
+
+# Exclude actual input
+**/input.txt
