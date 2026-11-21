@@ -5,6 +5,12 @@ class NumberString(NamedTuple):
     string: str
     value: int
 
+    def index_in(self, target: str) -> int | None:
+        try:
+            return target.index(self.string)
+        except ValueError:
+            return None
+
 
 _NUMBER_STRINGS = (
     NumberString("one", 1),
@@ -37,10 +43,7 @@ def parse(calibration_string: str) -> int:
                 if found_number_string:
                     break
 
-                try:
-                    index_of_string = find_index_of_number_string_in(calibration_string, i, number_string)
-                except ValueError:
-                    continue
+                index_of_string = number_string.index_in(calibration_string)
 
                 if index_of_string == i:
                     found_number_string = number_string
@@ -57,7 +60,3 @@ def parse(calibration_string: str) -> int:
         raise Exception(f'Missing digits in string "{calibration_string}"')
 
     return int(first_number + last_number)
-
-
-def find_index_of_number_string_in(calibration_string: str, i: int, number_string: NumberString) -> int:
-    return calibration_string.index(number_string.string, i)
