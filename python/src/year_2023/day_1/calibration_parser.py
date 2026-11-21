@@ -38,7 +38,7 @@ def parse(calibration_string: str) -> int:
                     break
 
                 try:
-                    index_of_string = calibration_string.index(number_string.string, i)
+                    index_of_string = find_index_of_number_string_in(calibration_string, i, number_string)
                 except ValueError:
                     continue
 
@@ -57,3 +57,7 @@ def parse(calibration_string: str) -> int:
         raise Exception(f'Missing digits in string "{calibration_string}"')
 
     return int(first_number + last_number)
+
+
+def find_index_of_number_string_in(calibration_string: str, i: int, number_string: NumberString) -> int:
+    return calibration_string.index(number_string.string, i)
