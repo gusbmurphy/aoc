@@ -25,21 +25,41 @@ _NUMBER_STRINGS = (
 )
 
 
-class FirstAndLastNumber:
-    first: str | int | None = None
-    second: str | int | None = None
+class FoundValueAndIndex(NamedTuple):
+    value: str | int
+    index: int
+
+
+class FirstAndLastFoundNumbers:
+    _first: FoundValueAndIndex | None = None
+    _last: FoundValueAndIndex | None = None
+
+    def register_found(self, found: FoundValueAndIndex):
+        if not self._first:
+            self._first = found
+        elif found.index < self._first.index:
+            self._first = found
+
+        if not self._last:
+            self._last = found
+        elif found.index > self._last.index:
+            self._last = found
+
+    def full_value(self) -> int:
+        if self._first is None or self._last is None:
+            raise Exception(f'Could not find digits')
+
+        return int(str(self._first.value) + str(self._last.value))
 
 
 def parse(calibration_string: str) -> int:
-    found = FirstAndLastNumber()
+    found = FirstAndLastFoundNumbers()
 
     i = 0
     while i < len(calibration_string):
         character = calibration_string[i]
         if character.isdigit():
-            if found.first is None:
-                found.first = character
-            found.last = character
+            found.register_found(FoundValueAndIndex(character, i))
             i += 1
         else:
             found_number_string: NumberString | None = None
@@ -53,14 +73,9 @@ def parse(calibration_string: str) -> int:
                     found_number_string = number_string
 
             if found_number_string:
-                if found.first is None:
-                    found.first = str(found_number_string.value)
-                found.last = str(found_number_string.value)
+                found.register_found(FoundValueAndIndex(found_number_string.value, i))
                 i += len(found_number_string.string)
             else:
                 i += 1
 
-    if found.first is None or found.last is None:
-        raise Exception(f'Missing digits in string "{calibration_string}"')
-
-    return int(found.first + found.last)
+    return found.full_value()
