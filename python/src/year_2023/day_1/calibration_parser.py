@@ -55,12 +55,10 @@ class FirstAndLastFoundNumbers:
 def parse(calibration_string: str) -> int:
     found = FirstAndLastFoundNumbers()
 
-    i = 0
-    while i < len(calibration_string):
+    for i in range(len(calibration_string)):
         character = calibration_string[i]
         if character.isdigit():
             found.register_found(FoundValueAndIndex(character, i))
-            i += 1
         else:
             found_number_string: NumberString | None = None
             for number_string in _NUMBER_STRINGS:
@@ -74,8 +72,5 @@ def parse(calibration_string: str) -> int:
 
             if found_number_string:
                 found.register_found(FoundValueAndIndex(found_number_string.value, i))
-                i += len(found_number_string.string)
-            else:
-                i += 1
 
     return found.full_value()
