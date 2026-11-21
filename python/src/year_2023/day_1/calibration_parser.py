@@ -25,17 +25,21 @@ _NUMBER_STRINGS = (
 )
 
 
+class FirstAndLastNumber:
+    first: str | int | None = None
+    second: str | int | None = None
+
+
 def parse(calibration_string: str) -> int:
-    first_number: str | None = None
-    last_number: str | None = None
+    found = FirstAndLastNumber()
 
     i = 0
     while i < len(calibration_string):
         character = calibration_string[i]
         if character.isdigit():
-            if first_number is None:
-                first_number = character
-            last_number = character
+            if found.first is None:
+                found.first = character
+            found.last = character
             i += 1
         else:
             found_number_string: NumberString | None = None
@@ -49,14 +53,14 @@ def parse(calibration_string: str) -> int:
                     found_number_string = number_string
 
             if found_number_string:
-                if first_number is None:
-                    first_number = str(found_number_string.value)
-                last_number = str(found_number_string.value)
+                if found.first is None:
+                    found.first = str(found_number_string.value)
+                found.last = str(found_number_string.value)
                 i += len(found_number_string.string)
             else:
                 i += 1
 
-    if first_number is None or last_number is None:
+    if found.first is None or found.last is None:
         raise Exception(f'Missing digits in string "{calibration_string}"')
 
-    return int(first_number + last_number)
+    return int(found.first + found.last)
